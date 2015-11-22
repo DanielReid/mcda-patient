@@ -13,6 +13,7 @@ cd resources/
 bower install
 compass compile # optional
 
+lein ragtime migrate
 DEV=1 lein ring server-headless
 
 ````
