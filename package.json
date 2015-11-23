@@ -1,0 +1,29 @@
+{
+  "name": "mcda-patient",
+  "version": "0.0.0",
+  "description": "Internal project to elicit benefit-risk trade-offs from stakeholders in a questionnaire.",
+  "main": "index.js",
+  "directories": {
+    "test": "test"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/gertvv/mcda-patient.git"
+  },
+  "author": "",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/gertvv/mcda-patient/issues"
+  },
+  "dependencies": {
+    "basic-auth": "~1.0.3",
+    "express": "~4.13.3",
+    "swig": "~1.4.2",
+    "sequelize": "~3.14.1",
+    "pg": "~4.4.3",
+    "body-parser": "~1.14.1"
+  }
+}

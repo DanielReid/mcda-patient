@@ -1,0 +1,29 @@
+{% extends "base.html" %}
+{% block content %}
+<h2>Welcome to the admin panel</h2>
+<hr>
+<h3>Questionnaires</h3>
+<table width="100%">
+  <thead>
+    <tr>
+      <th>Title</th>
+      <th>#urls</th>
+      <th>&nbsp;</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% if questionnaires.length == 0 %}
+    <tr><td colspan="2" class="text-center">You have no questionnaires yet.</td></tr>
+    {% endif %}
+    {% for questionnaire in questionnaires|sort %}
+    <tr>
+      <td><a href="/admin/{{questionnaire.id}}/">{{questionnaire.title}}</a></td>
+      <td>{{questionnaire.number_of_results}}</td>
+      <td width="30"><a href="/admin/{{questionnaire.id}}/edit"><i class="fa fa-edit fa-tiny" /></a></td>
+    </tr>
+    {% endfor %}
+  </tbody>
+</table>
+
+<a href="/admin/new/edit" class="button success small">Create Questionnaire</a>
+{% endblock %}
