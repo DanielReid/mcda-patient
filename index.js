@@ -36,9 +36,35 @@ var Questionnaire = db.define('questionnaire', {
   }
 });
 
+var Result = db.define('result', {
+  id: {
+    type: Sequelize.INTEGER,
+    primaryKey: true,
+    autoIncrement: true
+  },
+  questionnaire_id: { // FIXME
+    type: Sequelize.INTEGER
+  },
+  answers: {
+    type: Sequelize.JSONB
+  },
+  url: {
+    type: Sequelize.CHAR(12),
+    unique: true
+  }
+});
+
 function questionnaireNotFound(res, id) {
   return function(error) {
     res.send("Questionnaire " + id + " not found");
+    res.sendStatus(404);
+    res.end();
+  };
+}
+
+function surveyNotFound(res, url) {
+  return function(error) {
+    res.send("Survey with ID " + url + " not found");
     res.sendStatus(404);
     res.end();
   };
@@ -104,15 +130,48 @@ app.post('/admin/:id', function(req, res) {
   }).catch(questionnaireNotFound(res, req.params.id));
 });
 
+function randomUrl() {
+  var n = (Math.random() * 1E16) % 1E9; // FIXME
+  return n.toString();
+}
+
+app.post('/admin/:id/generate-urls', function(req, res) {
+  Questionnaire.findById(req.params.id).then(function(qnaire) {
+    var urls = [];
+    for (var i = 0; i < req.body.urls; ++i) {
+      urls.push(randomUrl());
+    }
+    Result.create({questionnaire_id: req.params.id, url: urls[0]}).then(function() {
+      res.redirect('/admin/' + req.params.id);
+      res.end();
+    }).catch(internalServerError(res));
+  }).catch(questionnaireNotFound(res, req.params.id));
+});
+
 app.get('/admin/:id', function(req, res) {
   Questionnaire.findById(req.params.id).then(function(qnaire) {
-    res.render('admin/view.html', {
-      questionnaire: qnaire,
-      results: []
+    Result.findAll({"where": {"questionnaire_id": req.params.id}}).then(function(results) {
+      res.render('admin/view.html', {
+        questionnaire: qnaire,
+        results: results
+      });
     });
   }).catch(internalServerError(res));
 });
 
+app.get('/:survey', function(req, res) {
+  Result.find({"where": {"url": req.params.survey}}).then(function(survey) {
+    Questionnaire.findById(survey.questionnaire_id).then(function(qnaire) {
+      res.render('home.html', {
+        id: req.params.survey,
+        problem: qnaire.problem
+      });
+    }).catch(questionnaireNotFound(res, survey.questionnaire_id));
+  }).catch(surveyNotFound(res, req.params.survey));
+});
+
 Questionnaire.sync().then(function() {
-  app.listen(8080);
+  Result.sync().then(function() {
+    app.listen(8080);
+  });
 });

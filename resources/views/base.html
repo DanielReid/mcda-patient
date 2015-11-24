@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width" />
 
     <link href='//fonts.googleapis.com/css?family=Droid+Sans:400,700' rel='stylesheet' type='text/css'>
-    <link href="{{servlet-context}}/css/mcda-ema.css" rel="stylesheet" type="text/css">
+    <link href="/css/mcda-ema.css" rel="stylesheet" type="text/css">
 
     <title>EMA Stakeholder Preference Elicitation</title>
     <script type="text/javascript">
@@ -15,10 +15,10 @@
          _csrf_token : "{{csrf-token}}",
          _csrf_header : "X-CSRF-TOKEN",
      }
-     var context = "{{servlet-context}}";
+     var context = "";
     </script>
 
-    <script src="{{servlet-context}}bower_components/requirejs/require.js" data-main="{{servlet-context}}/js/main.js"></script>
+    <script src="/bower_components/requirejs/require.js" data-main="/js/main.js"></script>
 
   </head>
 

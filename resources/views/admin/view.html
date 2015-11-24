@@ -13,6 +13,22 @@
       </div>
     </div>
     <hr>
+    <h3>Generate URLs</h3>
+
+    <form action="/admin/{{questionnaire.id}}/generate-urls" method="POST">
+      <div class="row">
+        <div class="large-5 small-8 columns">
+          <label>Number of URLs to generate
+            <input type="number" name="urls" required min="1" max="255" />
+          </label>
+        </div>
+        <div class="large-2 small-4 columns">
+          <input type="submit" class="button" value="Generate"></input>
+        </div>
+      </div>
+    </form>
+
+    <hr>
     <h3>Results</h3>
     <div class="row">
       <div class="large-12 columns">
