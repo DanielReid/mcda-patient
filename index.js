@@ -42,38 +42,45 @@ var Result = db.define('result', {
     primaryKey: true,
     autoIncrement: true
   },
-  questionnaire_id: { // FIXME
-    type: Sequelize.INTEGER
+  questionnaire_id: {
+    type: Sequelize.INTEGER,
+    references: {
+      model: Questionnaire,
+      key: 'id'
+    }
   },
   answers: {
     type: Sequelize.JSONB
   },
   url: {
-    type: Sequelize.CHAR(12),
+    type: Sequelize.CHAR(8),
     unique: true
+  },
+  last_visited: {
+    type: Sequelize.DATE
+  },
+  last_completed: {
+    type: Sequelize.DATE
   }
 });
 
 function questionnaireNotFound(res, id) {
   return function(error) {
-    res.send("Questionnaire " + id + " not found");
-    res.sendStatus(404);
+    res.status(404).send("Questionnaire " + id + " not found");
     res.end();
   };
 }
 
 function surveyNotFound(res, url) {
   return function(error) {
-    res.send("Survey with ID " + url + " not found");
-    res.sendStatus(404);
+    res.status(404).send("Survey with ID " + url + " not found");
     res.end();
   };
 }
 
 function internalServerError(res) {
   return function (error) {
-    res.send(error);
-    res.sendStatus(500);
+    res.status(500).send(error);
     res.end();
   };
 }
@@ -130,18 +137,18 @@ app.post('/admin/:id', function(req, res) {
   }).catch(questionnaireNotFound(res, req.params.id));
 });
 
-function randomUrl() {
-  var n = (Math.random() * 1E16) % 1E9; // FIXME
-  return n.toString();
+function randomToken() {
+  return Math.random().toString(36).substring(2,10);
 }
 
 app.post('/admin/:id/generate-urls', function(req, res) {
   Questionnaire.findById(req.params.id).then(function(qnaire) {
-    var urls = [];
+    var qnaires = [];
     for (var i = 0; i < req.body.urls; ++i) {
-      urls.push(randomUrl());
+      qnaires.push({ questionnaire_id: req.params.id,
+                     url: randomToken() });
     }
-    Result.create({questionnaire_id: req.params.id, url: urls[0]}).then(function() {
+    Result.bulkCreate(qnaires).then(function() {
       res.redirect('/admin/' + req.params.id);
       res.end();
     }).catch(internalServerError(res));
@@ -155,18 +162,30 @@ app.get('/admin/:id', function(req, res) {
         questionnaire: qnaire,
         results: results
       });
-    });
+    }).catch(internalServerError(res));
   }).catch(internalServerError(res));
 });
 
 app.get('/:survey', function(req, res) {
   Result.find({"where": {"url": req.params.survey}}).then(function(survey) {
     Questionnaire.findById(survey.questionnaire_id).then(function(qnaire) {
+      survey.last_visited = new Date();
+      survey.save().then(function(){ console.log("updated") });
       res.render('home.html', {
         id: req.params.survey,
         problem: qnaire.problem
       });
     }).catch(questionnaireNotFound(res, survey.questionnaire_id));
+  }).catch(surveyNotFound(res, req.params.survey));
+});
+
+app.post('/:survey', function(req, res) {
+  Result.find({"where": {"url": req.params.survey}}).then(function(survey) {
+    survey.answers = req.body;
+    survey.last_completed = new Date();
+    survey.save().then(function() {
+      res.sendStatus(200);
+    }).catch(internalServerError(res));
   }).catch(surveyNotFound(res, req.params.survey));
 });
 

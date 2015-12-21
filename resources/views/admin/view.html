@@ -44,8 +44,8 @@
             {% for result in results %}
             <tr>
               <td><a href="/{{result.url}}">{{result.url}}</a></td>
-              <td>{{result.last_visited}}</td>
-              <td>{{result.last_completed}}</td>
+              <td>{% if result.last_visited %}{{ result.last_visited | date("Y-m-d H:iO") }}{% else %}Never{% endif %}</td>
+              <td>{% if result.last_completed %}{{ result.last_completed | date("Y-m-d H:iO") }}{% else %}Never{% endif %}</td>
             </tr>
             {% endfor %}
           </tbody>
