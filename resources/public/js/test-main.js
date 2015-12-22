@@ -1,6 +1,16 @@
-'use strict';
+var tests = [];
+for (var file in window.__karma__.files) {
+  if (window.__karma__.files.hasOwnProperty(file)) {
+    if (/Spec\.js$/.test(file)) {
+      tests.push(file);
+    }
+  }
+}
 
-require.config({
+requirejs.config({
+  // Karma serves files from '/base'
+  baseUrl: '/base/js',
+
   paths: {
     'jQuery': '../bower_components/jquery/dist/jquery.min',
     'underscore': '../bower_components/underscore/underscore-min',
@@ -10,7 +20,7 @@ require.config({
     'jquery-slider': '../bower_components/jslider/dist/jquery.slider.min',
     'mmfoundation': '../bower_components/angular-foundation/mm-foundation-tpls.min'
   },
-  baseUrl: 'js',
+
   shim: {
     'angular': { exports : 'angular' },
     'angular-resource': { deps:['angular'], exports: 'angular-resource' },
@@ -20,12 +30,11 @@ require.config({
     'jquery-slider': { deps: ['jQuery'] },
     'mmfoundation': { deps: ['angular'] }
   },
-  priority: ['angular']
-});
+  priority: ['angular'],
 
-define(function (require) {
-  var angular = require("angular");
-  var app = require("elicit");
+  // ask Require.js to load these files (all our tests)
+  deps: tests,
 
-  angular.bootstrap(document, ['elicit']);
+  // start test run, once Require.js is done
+  callback: window.__karma__.start
 });
