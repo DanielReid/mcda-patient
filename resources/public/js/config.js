@@ -11,9 +11,19 @@ define(function(require) {
     handler: 'introduction',
     templateUrl: 'introduction.html'
   }, {
-    id: 'explainOrdinal',
+    id: 'explain-difference-pvf',
+    title: 'What is difference PVF',
+    handler: 'introduction',
+    templateUrl: 'explainDifferencePvf.html'
+  }, {
+    id: 'difference-pvf',
+    title: 'Difference PVF',
+    handler: 'differencePvf',
+    templateUrl: 'differencePvf.html'
+  }, {
+    id: 'explain-ordinal',
     title: 'What is ordinal elicitation',
-    handler: 'explainOrdinal',
+    handler: 'introduction',
     templateUrl: 'explainOrdinal.html'
   }, {
     id: 'ordinal-swing',
@@ -23,7 +33,7 @@ define(function(require) {
   }, {
     id: 'explain-trade-off',
     title: 'Explaining Trade Off steps',
-    handler: 'explainTradeOff',
+    handler: 'introduction',
     templateUrl: 'explainTradeOff.html'
   }, {
     id: 'bisection-swing',

@@ -1,9 +1,6 @@
 'use strict';
-define(function(require) {
-  var _ = require("underscore");
-  var angular = require("angular");
-
-  var Introduction = function($scope, currentWorkspace) {
+define(['angular', 'underscore'], function(angular, _) {
+  return function($scope, currentWorkspace) {
     return {
       fields: [],
       standardize: _.identity,
@@ -13,7 +10,4 @@ define(function(require) {
       isFinished: function(state) { return true; }
     };
   };
-
-  return Introduction;
-
 });

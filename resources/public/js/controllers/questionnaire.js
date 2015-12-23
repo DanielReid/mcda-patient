@@ -48,7 +48,7 @@ define(function(require) {
     };
 
     $scope.isDone = function(state) {
-      return currentHandler.isFinished(state) && steps.length === 0;
+      return currentHandler && currentHandler.isFinished(state) && steps.length === 0;
     };
 
     initializeStep(steps.shift(), currentWorkspace);
