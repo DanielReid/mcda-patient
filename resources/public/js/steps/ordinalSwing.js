@@ -31,9 +31,7 @@ define(function(require) {
       criteria = state.problem.criteria;
       var fields = {
         title: title(1),
-        prefs: {
-          ordinal: []
-        },
+        ordinalPrefs: [],
         reference: getReference(),
         choices: (function() {
           var criteria = state.problem.criteria;
@@ -69,8 +67,8 @@ define(function(require) {
       function next(choice) {
         delete nextState.choices[choice];
         nextState.reference[choice] = pvf.best(state.problem.criteria[choice]);
-        nextState.prefs.ordinal.push(choice);
-        nextState.title = title(nextState.prefs.ordinal.length + 1);
+        nextState.ordinalPrefs.push(choice);
+        nextState.title = title(nextState.ordinalPrefs.length + 1);
       }
       next(choice);
 
@@ -82,7 +80,7 @@ define(function(require) {
     };
 
     function standardize(prefs) {
-      var order = prefs.ordinal;
+      var order = prefs;
 
       function ordinal(a, b) {
         return {
@@ -109,14 +107,14 @@ define(function(require) {
 
     var save = function(state) {
       var next = nextState(state);
-      var prefs = next.prefs;
-      next.prefs = standardize(prefs);
+      var prefs = standardize(next.ordinalPrefs);
+      next.prefs = (next.prefs ? next.prefs : []).concat(prefs);
       return _.pick(next, ['problem', 'prefs']);
     };
 
     return {
       validChoice: validChoice,
-      fields: ['choice', 'reference', 'choices', 'standardized'],
+      fields: ['choice', 'reference', 'choices', 'standardized', 'ordinalPrefs'],
       nextState: nextState,
       save: save,
       initialize: _.partial(initialize, currentWorkspace),

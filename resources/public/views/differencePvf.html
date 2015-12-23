@@ -2,6 +2,13 @@
   <div class="columns large-12">
     <h3 ng-bind="state.title"></h3>
 
-    Difference PVF
+    Difference PVF: {{ state.criterion }} {{ state.pvfAnswers[state.criterion].length + 1 }}
+
+    <p>A {{ state.criterionInfo.pvf.direction }} in {{ state.criterionInfo.title }} from {{ state.intervals[state.criterion][state.question[0]][0] }} to {{ state.intervals[state.criterion][state.question[0]][1] }} has</p>
+    <label><input value=">" type="radio" ng-model="state.choice">more</label>
+    <label><input value="=" type="radio" ng-model="state.choice">the same</label>
+    <label><input value="<" type="radio" ng-model="state.choice">less</label>
+    <p>value as a {{ state.criterionInfo.pvf.direction }} in {{ state.criterionInfo.title }} from {{ state.intervals[state.criterion][state.question[1]][0] }} to {{ state.intervals[state.criterion][state.question[1]][1] }}.</p>
+    
   </div>
 </div>
