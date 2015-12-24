@@ -9,7 +9,7 @@ define(function(require) {
     var resource = {
       get: function() {
         var deferred = $q.defer();
-        deferred.resolve({problem: window.models.problem});
+        deferred.resolve({ problem: window.models.problem, answers: window.models.answers });
         return deferred;
       }
     };

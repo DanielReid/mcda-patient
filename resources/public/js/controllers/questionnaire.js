@@ -30,9 +30,17 @@ define(function(require) {
       if(currentHandler.save) {
         state = currentHandler.save(state);
       }
-      initializeStep(steps.shift(), state);
-    };
 
+      var nextStep = steps.shift();
+      initializeStep(nextStep, state);
+
+      var results = { 'results': _.pick(state, ['prefs', 'personal']), 'step': nextStep.id };
+      console.log(results);
+      $http.post("/" + window.models.id, results).success(function(data) {
+      }).error(function(data, status) {
+        $scope.$root.$broadcast("error", data, status);
+      });
+    };
 
     $scope.submit = function(state) {
       if (currentHandler.save) {
@@ -51,6 +59,17 @@ define(function(require) {
       return currentHandler && currentHandler.isFinished(state) && steps.length === 0;
     };
 
+    if (currentWorkspace.answers.step) {
+      console.log("Finding step");
+      var idx = _.findIndex(steps, function(step) {
+        return step.id === currentWorkspace.answers.step;
+      });
+      steps = _.rest(steps, idx);
+      currentWorkspace = {
+        problem: currentWorkspace.problem,
+        prefs: currentWorkspace.answers.results.prefs
+      };
+    }
     initializeStep(steps.shift(), currentWorkspace);
   };
 });

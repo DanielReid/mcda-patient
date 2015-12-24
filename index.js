@@ -174,7 +174,8 @@ app.get('/:survey', function(req, res) {
       survey.save().then(function(){ console.log("updated") });
       res.render('home.html', {
         id: req.params.survey,
-        problem: qnaire.problem
+        problem: qnaire.problem,
+        answers: survey.answers
       });
     }).catch(questionnaireNotFound(res, survey.questionnaire_id));
   }).catch(surveyNotFound(res, req.params.survey));

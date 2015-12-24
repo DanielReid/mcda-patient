@@ -2,8 +2,9 @@
 {% block content %}
 <div ui-view></div>
 <script>
- window.models.problem = {{problem|json|safe}};
- window.models.id = "{{id|safe}}";
+  window.models.problem = {{problem|json|safe}};
+  window.models.id = "{{id|safe}}";
+  window.models.answers = {{answers|json|safe}};
 </script>
 
 {% endblock %}
