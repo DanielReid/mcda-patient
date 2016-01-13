@@ -19,7 +19,7 @@ define(function(require) {
     };
 
     var title = function(state) {
-      var base = 'Part 1: question ';
+      var base = 'Part 2 - question ';
       var total = (_.size(criteria) - 1);
       if (state > total) {
         return base + ' (DONE)';

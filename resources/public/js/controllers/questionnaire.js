@@ -25,6 +25,8 @@ define(function(require) {
       });
     };
 
+    $scope.nCriteria = _.size(currentWorkspace.problem.criteria);
+
     $scope.proceed = function(state) {
       if(steps.length === 0) return;
       if(currentHandler.save) {

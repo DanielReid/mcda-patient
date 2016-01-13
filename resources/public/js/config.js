@@ -1,15 +1,21 @@
 'use strict';
 define(function(require) {
-  var steps = [{
+  var steps = [
+  {
+    id: 'about',
+    title: 'Information about the study',
+    handler: 'introduction',
+    templateUrl: 'about.html'
+  }, {
     id: 'consent',
     title: 'Consent form',
     handler: 'consent',
     templateUrl: 'consent.html'
   }, {
-    id: 'introduction',
-    title: 'General introduction',
+    id: 'outcomes',
+    title: 'Outcomes',
     handler: 'introduction',
-    templateUrl: 'introduction.html'
+    templateUrl: 'outcomes.html'
   }, {
     id: 'explain-difference-pvf',
     title: 'What is difference PVF',
@@ -40,6 +46,16 @@ define(function(require) {
     title: 'Bisection Swing Elicitation',
     handler: 'bisectionSwing',
     templateUrl: 'bisectionSwing.html'
+  }, {
+    id: 'explain-demographics',
+    title: 'Explain demographics',
+    handler: 'introduction',
+    templateUrl: 'explainDemographics.html'
+  }, {
+    id: 'demographics',
+    title: 'Demographics',
+    handler: 'introduction',
+    templateUrl: 'demographics.html'
   }];
 
   return {

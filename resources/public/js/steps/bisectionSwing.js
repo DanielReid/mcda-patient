@@ -26,7 +26,7 @@ define(function(require) {
     $scope.pvf = pvf;
 
     $scope.title = function(step, total) {
-      var base = 'Part 2: question ';
+      var base = 'Part 3 - question ';
       if (step > total) {
         return base + ' (DONE)';
       }

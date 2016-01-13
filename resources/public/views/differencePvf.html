@@ -1,14 +1,12 @@
 <div class="row">
   <div class="columns large-12">
-    <h3 ng-bind="state.title"></h3>
+    <h3>Rate improvements in {{state.criterionInfo.title}} ({{ state.pvfPrefs[state.criterion].length + 1 }}/6)</h3>
 
-    Difference PVF: {{ state.criterion }} {{ state.pvfAnswers[state.criterion].length + 1 }}
-
-    <p>A {{ state.criterionInfo.pvf.direction }} in {{ state.criterionInfo.title }} from {{ state.intervals[state.criterion][state.question[0]][0] }} to {{ state.intervals[state.criterion][state.question[0]][1] }} has</p>
+    <p>A {{ state.criterionInfo.pvf.direction === "decreasing" ? "decrease" : "increase" }} in {{ state.criterionInfo.title }} from {{ state.intervals[state.criterion][state.question[0]][0] }}{{state.criterionInfo.unitOfMeasurement}} to {{ state.intervals[state.criterion][state.question[0]][1] }}{{state.criterionInfo.unitOfMeasurement}} has</p>
     <label><input value=">" type="radio" ng-model="state.choice">more</label>
     <label><input value="=" type="radio" ng-model="state.choice">the same</label>
     <label><input value="<" type="radio" ng-model="state.choice">less</label>
-    <p>value as a {{ state.criterionInfo.pvf.direction }} in {{ state.criterionInfo.title }} from {{ state.intervals[state.criterion][state.question[1]][0] }} to {{ state.intervals[state.criterion][state.question[1]][1] }}.</p>
+    <p>value as a {{ state.criterionInfo.pvf.direction === "decreasing" ? "decrease" : "increase" }} in {{ state.criterionInfo.title }} from {{ state.intervals[state.criterion][state.question[1]][0] }}{{state.criterionInfo.unitOfMeasurement}} to {{ state.intervals[state.criterion][state.question[1]][1] }}{{state.criterionInfo.unitOfMeasurement}}.</p>
     
   </div>
 </div>
