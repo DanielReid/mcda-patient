@@ -7,6 +7,7 @@
     "test": "test"
   },
   "scripts": {
+    "start": "node index.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
@@ -25,8 +26,10 @@
     "sequelize": "~3.14.1",
     "pg": "~4.4.3",
     "body-parser": "~1.14.1",
+    "requirejs": "~2.1.22"
+  },
+  "devDependencies": {
     "jasmine": "~2.4.1",
-    "requirejs": "~2.1.22",
     "karma-requirejs": "~0.2.2",
     "karma": "~0.13.15",
     "phantomjs": "~1.9.19",
