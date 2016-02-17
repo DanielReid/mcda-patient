@@ -42,7 +42,8 @@ define(function(require) {
 
       var results = { 'results': _.pick(state, ['prefs', 'personal']), 'step': nextStep.id };
       console.log(results);
-      $http.post("/" + window.models.id, results).success(function(data) {
+      $http.post("/" + currentWorkspace.id, results).success(function(data) {
+        currentWorkspace.answers = results;
       }).error(function(data, status) {
         $scope.$root.$broadcast("error", data, status);
       });
@@ -54,7 +55,8 @@ define(function(require) {
       }
       var results = {'results': _.pick(state, ['prefs', 'personal']), 'done': true};
 
-      $http.post("/" + window.models.id, results).success(function(data) {
+      $http.post("/" + currentWorkspace.id, results).success(function(data) {
+        currentWorkspace.answers = results;
         $state.go("thankYou");
       }).error(function(data, status) {
         $scope.$root.$broadcast("error", data, status);
@@ -73,10 +75,7 @@ define(function(require) {
       console.log(currentWorkspace.answers.step, idx);
       if (idx < 0) idx = 0;
       steps = _.rest(steps, idx);
-      currentWorkspace = {
-        problem: currentWorkspace.problem,
-        prefs: currentWorkspace.answers.results.prefs
-      };
+      currentWorkspace.prefs = currentWorkspace.answers.results.prefs;
     }
     initializeStep(steps.shift(), currentWorkspace);
   };
