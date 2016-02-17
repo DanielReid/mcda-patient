@@ -34,6 +34,9 @@ var Questionnaire = db.define('questionnaire', {
   },
   problem: {
     type: Sequelize.JSONB
+  },
+  questions: {
+    type: Sequelize.JSONB
   }
 });
 
@@ -111,7 +114,8 @@ app.get('/admin/:id/edit', function(req, res) {
       questionnaire_id: qnaire.id,
       questionnaire: {
         title: qnaire.title,
-        problem: JSON.stringify(qnaire.problem, null, 2)
+        problem: JSON.stringify(qnaire.problem, null, 2),
+        questions: JSON.stringify(qnaire.questions, null, 2)
       }
     });
   }).catch(questionnaireNotFound(res, req.params.id));
@@ -120,7 +124,8 @@ app.get('/admin/:id/edit', function(req, res) {
 app.post('/admin/new', function(req, res) {
   var data = {
     title: req.body.title,
-    problem: JSON.parse(req.body.problem)
+    problem: JSON.parse(req.body.problem),
+    questions: JSON.parse(req.body.questions)
   };
   Questionnaire.create(data).then(function(qnaire) {
     res.redirect('/admin/' + qnaire.get('id'));
@@ -131,7 +136,8 @@ app.post('/admin/:id', function(req, res) {
   Questionnaire.findById(req.params.id).then(function(qnaire) {
     qnaire.update({
       title: req.body.title,
-      problem: JSON.parse(req.body.problem)
+      problem: JSON.parse(req.body.problem),
+      questions: JSON.parse(req.body.questions)
     }).then(function() {
       res.redirect('/admin/' + qnaire.get('id'));
     }).catch(internalServerError(res));
@@ -177,6 +183,7 @@ app.get('/:survey', function(req, res) {
           id: req.params.survey,
           title: qnaire.title,
           problem: qnaire.problem,
+          questions: qnaire.questions,
           answers: survey.answers,
           lastVisited: survey.last_visited,
           lastSaved: survey.last_completed

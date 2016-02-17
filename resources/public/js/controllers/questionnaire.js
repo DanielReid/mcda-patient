@@ -40,7 +40,7 @@ define(function(require) {
       var nextStep = steps.shift();
       initializeStep(nextStep, state);
 
-      var results = { 'results': _.pick(state, ['prefs', 'personal']), 'step': nextStep.id };
+      var results = { 'results': state.prefs, 'step': nextStep.id };
       console.log(results);
       $http.post("/" + currentWorkspace.id, results).success(function(data) {
         currentWorkspace.answers = results;
@@ -53,7 +53,7 @@ define(function(require) {
       if (currentHandler.save) {
         state = currentHandler.save(state);
       }
-      var results = {'results': _.pick(state, ['prefs', 'personal']), 'done': true};
+      var results = {'results': state.prefs, 'done': true};
 
       $http.post("/" + currentWorkspace.id, results).success(function(data) {
         currentWorkspace.answers = results;
@@ -75,7 +75,8 @@ define(function(require) {
       console.log(currentWorkspace.answers.step, idx);
       if (idx < 0) idx = 0;
       steps = _.rest(steps, idx);
-      currentWorkspace.prefs = currentWorkspace.answers.results.prefs;
+      currentWorkspace.prefs = 
+        (currentWorkspace.answers.results && currentWorkspace.answers.results.prefs) ? currentWorkspace.answers.results.prefs : [];
     }
     initializeStep(steps.shift(), currentWorkspace);
   };

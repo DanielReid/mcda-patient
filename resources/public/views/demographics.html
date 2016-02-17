@@ -1,5 +1,21 @@
 <div>
-  <h3>Part 4 &mdash; Demographics and disease history</h3>
+  <h3>Demographics and disease history</h3>
 
-  <p>TODO: This part of the survey has not yet been implemented.</p>
+  <p>Before we ask you about your treatment outcome preferences, we ask several questions to provide us with personal information about you. The information that you provide will be treated confidentially and cannot be traced back to you as a person. Feel free to leave blank any of the questions that you cannot or do not want to answer.</p>
+
+  <p ng-show="!state.questions">No questions have been defined.</p>
+
+  <div ng-show="state.questions">
+    <p>In total, this part of the survey will consist of {{state.questions.length}} questions.</p>
+
+    <div ng-repeat="question in state.questions">
+      {{question.question}}
+      <label ng-repeat="answer in question.answers">
+        <input type="radio" ng-model="state.demographics[question.question]" ng-value="answer">
+        {{ answer }}
+      </label>
+    </div>
+
+  </div>
+
 </div>

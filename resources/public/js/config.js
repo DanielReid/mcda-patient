@@ -12,6 +12,11 @@ define(function(require) {
     handler: 'consent',
     templateUrl: 'consent.html'
   }, {
+    id: 'demographics',
+    title: 'Demographics',
+    handler: 'demographics',
+    templateUrl: 'demographics.html'
+  }, {
     id: 'outcomes',
     title: 'Outcomes',
     handler: 'introduction',
@@ -46,16 +51,6 @@ define(function(require) {
     title: 'Bisection Swing Elicitation',
     handler: 'bisectionSwing',
     templateUrl: 'bisectionSwing.html'
-  }, {
-    id: 'explain-demographics',
-    title: 'Explain demographics',
-    handler: 'introduction',
-    templateUrl: 'explainDemographics.html'
-  }, {
-    id: 'demographics',
-    title: 'Demographics',
-    handler: 'introduction',
-    templateUrl: 'demographics.html'
   }];
 
   return {
