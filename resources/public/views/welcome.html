@@ -1,0 +1,22 @@
+<div>
+  <div ng-show="done">
+    <h3>Thank you for participating in the survey!</h3>
+
+    <p>You have already completed the survey on {{ lastSaved | date:'longDate' }}. We would like to take this opportunity to thank you once more for your participation in our study.</p>
+  </div>
+
+  <div ng-show="!done">
+    <h3>Welcome back at the survey!</h3>
+
+    <p>Thank you for returning to the survey.
+    <span ng-show="lastSaved">You last participated on {{ lastSaved | date:'longDate' }}.</span>
+    Do you want to continue from where you left previously?</p>
+
+    <ul class="button-group">
+      <li><a href="#" class="button">Start from the beginning</a></li>
+      <li><a ui-sref="questionnaire" class="button">Continue with survey</a></li>
+      <li><a href="#" class="button">Quit</a></li>
+    </ul>
+
+  </div>
+</div>

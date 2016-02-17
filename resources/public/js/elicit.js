@@ -44,30 +44,38 @@ define(function(require) {
 
     $httpProvider.interceptors.push('ErrorHandling');
 
-    $stateProvider.state("questionnaire", {
-      url: "/questionnaire",
-      templateUrl: baseTemplatePath + "questionnaire.html",
-      controller: "QuestionnaireController",
+    $stateProvider.state("base", {
+      templateUrl: baseTemplatePath + "base.html",
+      controller: "BaseController",
       resolve: {
         currentWorkspace: function($stateParams, WorkspaceResource, Config) {
           return WorkspaceResource.get().promise;
         }
       }
+    });
+
+    $stateProvider.state("welcome", {
+      parent: "base",
+      url: "/welcome",
+      templateUrl: baseTemplatePath + "welcome.html",
+      controller: "WelcomeController"
+    });
+
+    $stateProvider.state("questionnaire", {
+      parent: "base",
+      url: "/questionnaire",
+      templateUrl: baseTemplatePath + "questionnaire.html",
+      controller: "QuestionnaireController"
     });
 
     $stateProvider.state("thankYou", {
+      parent: "base",
       url: "/thank-you",
       templateUrl: baseTemplatePath + "thankYou.html",
-
-      controller: "ThankYouController",
-      resolve: {
-        currentWorkspace: function($stateParams, WorkspaceResource, Config) {
-          return WorkspaceResource.get().promise;
-        }
-      }
+      controller: "ThankYouController"
     });
 
-    $urlRouterProvider.otherwise("/questionnaire");
+    $urlRouterProvider.otherwise("/welcome");
   });
 
   app.run(function($rootScope, $window, $http) {

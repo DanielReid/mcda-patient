@@ -23,18 +23,6 @@
   </head>
 
   <body>
-    <nav class="top-bar" data-topbar role="navigation">
-      <ul class="title-area">
-        <li class="name">
-          <h1><a href="#/">Stakeholder Preferences</a></h1>
-        </li>
-      </ul>
-    </nav>
-
-    <section>
-      <div class="color-stripe"></div>
-    </section>
-
     <div ng-if="error" class="row" ng-cloak>
       <div class="columns">
         <addis-alert type="alert" close="error.close()">{{error.code}} {{error.cause}}<span ng-show="error.error">&mdash; {{error.error}}</span></addis-alert>

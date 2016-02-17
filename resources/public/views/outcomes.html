@@ -1,11 +1,8 @@
-<div class="row">
-  <div class="columns large-10">
-    <h3>Treatment outcomes considered in this survey</h3>
-    <p>In this survey, we will ask you to consider the following outcomes in the treatment of an advanced cancer:</p>
-    <dl style="margin-left: 2em">
-      <dt ng-repeat-start="criterion in state.problem.criteria"><strong>{{criterion.title}}</strong></dt>
-      <dd ng-repeat-end>{{criterion.description}}</dd>
-    </dl>
-
-    </div>
+<div>
+  <h3>Treatment outcomes considered in this survey</h3>
+  <p>In this survey, we will ask you to consider the following outcomes in the treatment of an advanced cancer:</p>
+  <dl style="margin-left: 2em">
+    <dt ng-repeat-start="criterion in state.problem.criteria"><strong>{{criterion.title}}</strong></dt>
+    <dd ng-repeat-end>{{criterion.description}}</dd>
+  </dl>
 </div>

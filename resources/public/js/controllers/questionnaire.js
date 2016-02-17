@@ -8,6 +8,10 @@ define(function(require) {
     var steps = angular.copy(Config.steps);
     var currentHandler = null;
 
+    if (!currentWorkspace.answers) {
+      currentWorkspace.answers = {};
+    }
+
     var initializeStep = function(step, workspace) {
       var handlerPath = "../steps/" + step.handler;
 
@@ -48,7 +52,7 @@ define(function(require) {
       if (currentHandler.save) {
         state = currentHandler.save(state);
       }
-      var results = {'results': _.pick(state, ['prefs', 'personal'])};
+      var results = {'results': _.pick(state, ['prefs', 'personal']), 'done': true};
 
       $http.post("/" + window.models.id, results).success(function(data) {
         $state.go("thankYou");
@@ -66,6 +70,8 @@ define(function(require) {
       var idx = _.findIndex(steps, function(step) {
         return step.id === currentWorkspace.answers.step;
       });
+      console.log(currentWorkspace.answers.step, idx);
+      if (idx < 0) idx = 0;
       steps = _.rest(steps, idx);
       currentWorkspace = {
         problem: currentWorkspace.problem,

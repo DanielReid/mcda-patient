@@ -173,9 +173,14 @@ app.get('/:survey', function(req, res) {
       survey.last_visited = new Date();
       survey.save().then(function(){ console.log("updated") });
       res.render('home.html', {
-        id: req.params.survey,
-        problem: qnaire.problem,
-        answers: survey.answers
+        info: {
+          id: req.params.survey,
+          title: qnaire.title,
+          problem: qnaire.problem,
+          answers: survey.answers,
+          lastVisited: survey.last_visited,
+          lastSaved: survey.last_completed
+        }
       });
     }).catch(questionnaireNotFound(res, survey.questionnaire_id));
   }).catch(surveyNotFound(res, req.params.survey));
