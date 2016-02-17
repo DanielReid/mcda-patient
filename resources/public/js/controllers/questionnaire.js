@@ -75,9 +75,9 @@ define(function(require) {
       console.log(currentWorkspace.answers.step, idx);
       if (idx < 0) idx = 0;
       steps = _.rest(steps, idx);
-      currentWorkspace.prefs = 
-        (currentWorkspace.answers.results && currentWorkspace.answers.results.prefs) ? currentWorkspace.answers.results.prefs : [];
     }
+    currentWorkspace.prefs = 
+      (currentWorkspace.answers.results && currentWorkspace.answers.results.prefs) ? currentWorkspace.answers.results.prefs : [];
     initializeStep(steps.shift(), currentWorkspace);
   };
 });
