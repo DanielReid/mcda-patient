@@ -16,8 +16,8 @@ define(['angular', 'underscore', 'differencePvf'], function(angular, _, Differen
         var l = increasing ? criterion.pvf.range[0] : criterion.pvf.range[1];
         var r = increasing ? criterion.pvf.range[1] : criterion.pvf.range[0];
         return _.map(_.range(nIntervals), function(i) {
-          var w1 = i * 0.25;
-          var w2 = (i + 1) * 0.25;
+          var w1 = i/nIntervals;
+          var w2 = (i + 1)/nIntervals;
           return [w1 * r + (1 - w1) * l, w2 * r + (1 - w2) * l];
         });
       }
