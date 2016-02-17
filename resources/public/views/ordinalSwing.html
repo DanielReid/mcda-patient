@@ -10,7 +10,7 @@
 
     <ul>
       <li ng-repeat="(criterion, value) in state.reference track by $index" ng-init="c = state.problem.criteria[criterion]">
-        {{c.title}} = {{value | number}} {{c.unitOfMeasurement}}
+        <abbr title="{{c.description}}">{{c.title}}</abbr> = {{value | number}} {{c.unitOfMeasurement}}
       </li>
     </ul>
 
