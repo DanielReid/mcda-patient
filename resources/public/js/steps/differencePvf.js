@@ -2,6 +2,7 @@
 
 define(['angular', 'underscore', 'differencePvf'], function(angular, _, DifferencePvf) {
   return function($scope, currentWorkspace) {
+    var nIntervals = 3;
     var criteria = {};
     var criteriaOrder = [];
 
@@ -14,7 +15,7 @@ define(['angular', 'underscore', 'differencePvf'], function(angular, _, Differen
         var increasing = criterion.pvf.direction == "increasing";
         var l = increasing ? criterion.pvf.range[0] : criterion.pvf.range[1];
         var r = increasing ? criterion.pvf.range[1] : criterion.pvf.range[0];
-        return _.map(_.range(4), function(i) {
+        return _.map(_.range(nIntervals), function(i) {
           var w1 = i * 0.25;
           var w2 = (i + 1) * 0.25;
           return [w1 * r + (1 - w1) * l, w2 * r + (1 - w2) * l];
@@ -34,7 +35,7 @@ define(['angular', 'underscore', 'differencePvf'], function(angular, _, Differen
         intervals: generateIntervals(state),
         criterion: criteriaOrder[0],
         criterionInfo: criteria[criteriaOrder[0]],
-        question: DifferencePvf.nextInterval(4, [])
+        question: DifferencePvf.nextInterval(nIntervals, [])
       };
       return _.extend(state, fields);
     };
@@ -52,12 +53,12 @@ define(['angular', 'underscore', 'differencePvf'], function(angular, _, Differen
       nextState.choice = undefined;
       var answers = nextState.pvfPrefs[state.criterion];
       answers.push(state.question.concat([state.choice]));
-      nextState.question = DifferencePvf.nextInterval(4, answers);
+      nextState.question = DifferencePvf.nextInterval(nIntervals, answers);
 
       if (!nextState.question) {
         var idx = _.indexOf(criteriaOrder, state.criterion) + 1;
         nextState.criterion = criteriaOrder[idx];
-        nextState.question = DifferencePvf.nextInterval(4, []);
+        nextState.question = DifferencePvf.nextInterval(nIntervals, []);
         nextState.criterionInfo = criteria[criteriaOrder[idx]];
       }
 
