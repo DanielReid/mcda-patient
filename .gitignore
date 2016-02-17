@@ -1,22 +1,6 @@
-/target
-/lib
-/classes
-/checkouts
-resources/build
-pom.xml
-*.jar
-*.class
-/.lein-*
-/.env
-*.log
-*.db
-
+/node_modules
 bower_components
 *.swp
-/tags
-\#*\#
-.\#*
-*_archive
 .sass-cache
 
 # Numerous always-ignore extensions
