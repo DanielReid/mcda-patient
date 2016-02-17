@@ -118,7 +118,7 @@ define(function(require) {
       nextState: nextState,
       save: save,
       initialize: _.partial(initialize, currentWorkspace),
-      standardize: standardize,
+      standardize: _.identity,
       isFinished: isFinished
     };
   };

@@ -77,7 +77,7 @@ define(function(require) {
       steps = _.rest(steps, idx);
     }
     currentWorkspace.prefs = 
-      (currentWorkspace.answers.results && currentWorkspace.answers.results.prefs) ? currentWorkspace.answers.results.prefs : [];
+      currentWorkspace.answers.results ? currentWorkspace.answers.results : [];
     initializeStep(steps.shift(), currentWorkspace);
   };
 });
