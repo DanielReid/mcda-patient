@@ -2,7 +2,7 @@
 
 Internal project to elicit benefit-risk trade-offs from stakeholders in a questionnaire.
 
-# To develop
+## To develop
 
 The steps below should get you started, provided you have installed nodejs and bower.
 
@@ -22,3 +22,10 @@ node index
 ````
 
 The admin password is 'test' by default.
+
+## Building and running with docker
+
+```
+cd docker
+docker build -t survey --build-arg sha=<commit> .
+```
