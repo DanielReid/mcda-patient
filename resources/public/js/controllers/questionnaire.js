@@ -19,6 +19,10 @@ define(function(require) {
     }
 
     var initializeStep = function(step, workspace) {
+      var nSteps = Config.steps.length;
+      var nRemain = steps.length + 1;
+      $scope.progress = (nSteps - nRemain) / nSteps * 100;
+
       var doInitialize = function() {
         var handlerPath = "steps/" + step.handler;
 
@@ -59,10 +63,6 @@ define(function(require) {
     }
 
     $scope.proceed = function(state) {
-      var nSteps = Config.steps.length;
-      var nRemain = steps.length;
-      $scope.progress = (nSteps - nRemain) / nSteps * 100;
-
       if(steps.length === 0) return;
       var state = saveState(state);
 
