@@ -22,35 +22,23 @@ define(function(require) {
     handler: 'introduction',
     templateUrl: 'outcomes.html'
   }, {
-    id: 'explain-difference-pvf',
-    title: 'What is difference PVF',
-    handler: 'introduction',
-    templateUrl: 'explainDifferencePvf.html'
-  }, {
     id: 'difference-pvf',
     title: 'Difference PVF',
     handler: 'differencePvf',
-    templateUrl: 'differencePvf.html'
-  }, {
-    id: 'explain-ordinal',
-    title: 'What is ordinal elicitation',
-    handler: 'introduction',
-    templateUrl: 'explainOrdinal.html'
+    templateUrl: 'differencePvf.html',
+    explainUrl: 'explainDifferencePvf.html'
   }, {
     id: 'ordinal-swing',
     title: 'Ordinal Swing Elicitation',
     handler: 'ordinalSwing',
-    templateUrl: 'ordinalSwing.html'
-  }, {
-    id: 'explain-trade-off',
-    title: 'Explaining Trade Off steps',
-    handler: 'introduction',
-    templateUrl: 'explainTradeOff.html'
+    templateUrl: 'ordinalSwing.html',
+    explainUrl: 'explainOrdinal.html'
   }, {
     id: 'bisection-swing',
     title: 'Bisection Swing Elicitation',
     handler: 'bisectionSwing',
-    templateUrl: 'bisectionSwing.html'
+    templateUrl: 'bisectionSwing.html',
+    explainUrl: 'explainTradeOff.html'
   }];
 
   return {

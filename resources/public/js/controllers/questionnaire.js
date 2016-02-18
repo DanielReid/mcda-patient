@@ -13,20 +13,32 @@ define(function(require) {
     }
 
     var initializeStep = function(step, workspace) {
-      var handlerPath = "../steps/" + step.handler;
+      var doInitialize = function() {
+        var handlerPath = "steps/" + step.handler;
 
-      require([handlerPath], function(Handler) {
-        currentHandler = $injector.invoke(Handler, this, { $scope: $scope, currentWorkspace: workspace});
+        require([handlerPath], function(Handler) {
+          currentHandler = $injector.invoke(Handler, this, { $scope: $scope, currentWorkspace: workspace});
 
-        $injector.invoke(Wizard, this, {
-          $scope: $scope,
-          handler: currentHandler
+          $injector.invoke(Wizard, this, {
+            $scope: $scope,
+            handler: currentHandler
+          });
+
+          $scope.stepTemplate = RootPath + "views/" + step.templateUrl;
+
+          $scope.$apply();
         });
+      }
 
-        $scope.stepTemplate = RootPath + "views/" + step.templateUrl;
-
-        $scope.$apply();
-      });
+      if (step.explainUrl) {
+        $scope.stepTemplate = RootPath + "views/" + step.explainUrl;
+        $scope.canProceed = function() { return true; };
+        $scope.isFinished = function() { return false; };
+        $scope.nextState = doInitialize;
+        currentHandler = null;
+      } else {
+        doInitialize();
+      }
     };
 
     $scope.nCriteria = _.size(currentWorkspace.problem.criteria);
