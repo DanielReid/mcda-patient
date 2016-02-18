@@ -107,9 +107,7 @@ define(function(require) {
 
     var save = function(state) {
       var next = nextState(state);
-      var prefs = standardize(next.ordinalPrefs);
-      next.prefs = (next.prefs ? next.prefs : []).concat(prefs);
-      return _.pick(next, ['problem', 'prefs']);
+      return standardize(next.ordinalPrefs);
     };
 
     return {

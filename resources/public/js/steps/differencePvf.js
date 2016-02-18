@@ -81,10 +81,7 @@ define(['angular', 'underscore', 'differencePvf'], function(angular, _, Differen
 
     var save = function(state) {
       var next = nextState(state);
-      return {
-        problem: next.problem,
-        prefs: next.prefs.concat(standardize(next.pvfPrefs))
-      };
+      return standardize(next.pvfPrefs);
     };
 
     return {

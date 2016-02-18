@@ -1,24 +1,39 @@
 <div ng-cloak="true">
+  <div class="row">
+    <div class="progress success radius large-10 large-offset-1">
+      <span class="meter" style="width: {{progress}}%"></span>
+    </div>
+  </div>
   <div class="row" style="min-height: 430px;">
     <div class="large-12 columns">
       <div ng-include="stepTemplate"></div>
     </div>
   </div>
   <div class="row">
-    <div class="columns large-12">
-      <button class="small button" ng-click="previousState()" ng-disabled="!canReturn()">Previous</button>
-      <button class="small button"
-              ng-if="!isFinished(state)"
-              ng-click="nextState(state)"
-              ng-disabled="!canProceed(state)">Next</button>
-      <button class="small button"
-              ng-if="isFinished(state) && !isDone(state)"
-              ng-disabled="!canProceed(state)"
-              ng-click="proceed(state)">Next</button>
-      <button class="small button success"
-              ng-if="isDone(state)"
-              ng-disabled="!canProceed(state)"
-              ng-click="submit(state)">Finish</button>
+    <div class="large-10 large-offset-1 columns">
+      <ul class="button-group right">
+        <li>
+          <button class="small button" ng-click="previousState()" ng-if="canReturn()">Previous</button>
+        </li>
+        <li>
+          <button class="small button"
+                  ng-if="!isFinished(state)"
+                  ng-click="nextState(state)"
+                  ng-disabled="!canProceed(state)">Next</button>
+        </li>
+        <li>
+          <button class="small button"
+                  ng-if="isFinished(state) && !isDone(state)"
+                  ng-disabled="!canProceed(state)"
+                  ng-click="proceed(state)">Next</button>
+        </li>
+        <li>
+          <button class="small button success"
+                  ng-if="isDone(state)"
+                  ng-disabled="!canProceed(state)"
+                  ng-click="submit(state)">Finish</button>
+        </li>
+      </ul>
     </div>
   </div>
 </div>

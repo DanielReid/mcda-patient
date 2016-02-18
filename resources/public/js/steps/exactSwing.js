@@ -109,7 +109,7 @@ define(function(require) {
 
     var save = function(state) {
       var next = nextState(state);
-      return _.pick(next, ['problem', 'prefs']);
+      return _.filter(next.prefs, function(pref) { return pref.type == 'exact swing' });
     };
 
     return {

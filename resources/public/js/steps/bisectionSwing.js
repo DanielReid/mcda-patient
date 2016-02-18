@@ -42,7 +42,8 @@ define(function(require) {
         criterionB: criterionB,
         cutoff: 0.5,
         a: state.problem.criteria[criterionA],
-        b: state.problem.criteria[criterionB]
+        b: state.problem.criteria[criterionB],
+        answers: []
       };
       return initial;
     }
@@ -109,8 +110,8 @@ define(function(require) {
         }
       }
 
-      next.prefs = angular.copy(state.prefs);
-      next.prefs.push({
+      next.answers = angular.copy(state.answers);
+      next.answers.push({
         criteria: [order[idx - 1], order[idx]],
         ratio: getRatioBounds(state),
         type: 'ratio bound'
@@ -126,7 +127,7 @@ define(function(require) {
 
     var save = function(state) {
       var next = nextState(state);
-      return _.pick(next, ['problem', 'prefs']);
+      return next.answers;
     };
 
     return {
@@ -138,7 +139,8 @@ define(function(require) {
                'a', 'b',
                'criterionA',
                'criterionB',
-               'cutoff'],
+               'cutoff',
+               'answers'],
       nextState: nextState,
       standardize: _.identity,
       save: save,

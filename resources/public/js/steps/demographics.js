@@ -10,10 +10,7 @@ define(["underscore"], function(_) {
       validChoice: function(state) { return true; },
       isFinished: function(state) { return true; },
       save: function(state) {
-        return {
-          problem: state.problem,
-          prefs: state.prefs.concat([{ "type": "questions", "answers": state.demographics }])
-        };
+        return [{ "type": "questions", "answers": state.demographics }];
       }
     };
   };

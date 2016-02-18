@@ -33,11 +33,13 @@
     <div class="row">
       <div class="large-12 columns">
         <table width="100%">
+          <caption>Generated questionnaires and their status. *: status indicates the last step started, not the last step completed.</caption>
           <thead>
             <tr>
               <td>URL</td>
               <td>Last visited</td>
-              <td>Last completed</td>
+              <td>Last saved</td>
+              <td>Status*</td>
             </tr>
           </thead>
           <tbody>
@@ -46,6 +48,7 @@
               <td><a href="/{{result.url}}">{{result.url}}</a></td>
               <td>{% if result.last_visited %}{{ result.last_visited | date("Y-m-d H:iO") }}{% else %}Never{% endif %}</td>
               <td>{% if result.last_completed %}{{ result.last_completed | date("Y-m-d H:iO") }}{% else %}Never{% endif %}</td>
+              <td>{% if result.answers && result.answers.done %}<i class="fa fa-check"></i>{% elif result.answers && result.answers.step %}{{result.answers.step}}{% else %}<i class="fa fa-question"></i>{% endif %}</td>
             </tr>
             {% endfor %}
           </tbody>

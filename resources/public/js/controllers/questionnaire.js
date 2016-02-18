@@ -5,8 +5,14 @@ define(function(require) {
   var Wizard = require("./helpers/wizard");
 
   return function(Config, $scope, $state, $injector, $http, currentWorkspace, RootPath) {
+    if (currentWorkspace.answers && currentWorkspace.answers.done) {
+      $state.go('thankYou');
+      return;
+    }
     var steps = angular.copy(Config.steps);
     var currentHandler = null;
+
+    $scope.progress = 0;
 
     if (!currentWorkspace.answers) {
       currentWorkspace.answers = {};
@@ -43,11 +49,22 @@ define(function(require) {
 
     $scope.nCriteria = _.size(currentWorkspace.problem.criteria);
 
-    $scope.proceed = function(state) {
-      if(steps.length === 0) return;
+    function saveState(state) {
       if(currentHandler.save) {
-        state = currentHandler.save(state);
+        var newPrefs = currentHandler.save(state);
+        state = _.pick(angular.copy(state), ['problem', 'prefs']);
+        state.prefs = (state.prefs ? state.prefs : []).concat(newPrefs);
       }
+      return state;
+    }
+
+    $scope.proceed = function(state) {
+      var nSteps = Config.steps.length;
+      var nRemain = steps.length;
+      $scope.progress = (nSteps - nRemain) / nSteps * 100;
+
+      if(steps.length === 0) return;
+      var state = saveState(state);
 
       var nextStep = steps.shift();
       initializeStep(nextStep, state);
@@ -62,9 +79,7 @@ define(function(require) {
     };
 
     $scope.submit = function(state) {
-      if (currentHandler.save) {
-        state = currentHandler.save(state);
-      }
+      var state = saveState(state);
       var results = {'results': state.prefs, 'done': true};
 
       $http.post("/" + currentWorkspace.id, results).success(function(data) {
