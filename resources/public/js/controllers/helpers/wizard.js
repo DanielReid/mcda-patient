@@ -3,7 +3,7 @@ define(function(require) {
   var angular = require("angular");
   var _ = require("underscore");
 
-  return function($scope, handler) {
+  return function($scope, handler, workspace) {
     var PERSISTENT_FIELDS = ["problem", "type", "prefs"];
     var previousStates =  [];
     var nextStates = [];
@@ -11,7 +11,7 @@ define(function(require) {
     $scope.state = (function() {
       var state;
       if (!_.isUndefined(handler.initialize)) {
-        state = handler.initialize();
+        state = handler.initialize(workspace);
       }
       return state || {};
     })();

@@ -3,7 +3,7 @@ define(function(require) {
   var angular = require("angular");
   var _ = require("underscore");
 
-  return function($scope, currentWorkspace, PartialValueFunction) {
+  return function($scope, PartialValueFunction) {
     var getOrdinalPreferences = function(prefs) {
       return _.filter(prefs, function(pref) { return pref.type === "ordinal"; });
     };
@@ -144,7 +144,8 @@ define(function(require) {
       nextState: nextState,
       standardize: _.identity,
       save: save,
-      initialize: _.partial(initialize, currentWorkspace)
+      initialize: initialize,
+      stepCountRange: function(problem) { var n = _.size(problem.criteria); return [(n - 1) * 2, (n - 1) * 2]; }
     };
   };
 });

@@ -1,8 +1,5 @@
 'use strict';
-define(function(require) {
-  var angular = require("angular");
-  var _ = require("underscore");
-  var Wizard = require("./helpers/wizard");
+define(['angular', 'underscore', './helpers/wizard'], function(angular, _, Wizard, require) {
 
   return function(Config, $scope, $state, $injector, $http, currentWorkspace, RootPath) {
     if (currentWorkspace.answers && currentWorkspace.answers.done) {
@@ -10,6 +7,16 @@ define(function(require) {
       return;
     }
     var steps = angular.copy(Config.steps);
+    for (var i = 0; i < steps.length; ++i) {
+      steps[i].Handler = $injector.invoke(steps[i].handler, this, { $scope: $scope });
+      steps[i].nSteps = steps[i].Handler.stepCountRange(currentWorkspace.problem)[1];
+    }
+
+    function countSteps(steps) {
+      return _.reduce(steps, function(memo, step) { return memo + step.nSteps; }, 0);
+    }
+    var nSteps = countSteps(steps);
+
     var currentHandler = null;
 
     $scope.progress = 0;
@@ -19,25 +26,18 @@ define(function(require) {
     }
 
     var initializeStep = function(step, workspace) {
-      var nSteps = Config.steps.length;
-      var nRemain = steps.length + 1;
+      var nRemain = countSteps(steps) + step.nSteps;
+      console.log(nRemain, nSteps);
       $scope.progress = (nSteps - nRemain) / nSteps * 100;
 
       var doInitialize = function() {
-        var handlerPath = "steps/" + step.handler;
-
-        require([handlerPath], function(Handler) {
-          currentHandler = $injector.invoke(Handler, this, { $scope: $scope, currentWorkspace: workspace});
-
-          $injector.invoke(Wizard, this, {
-            $scope: $scope,
-            handler: currentHandler
-          });
-
-          $scope.stepTemplate = RootPath + "views/" + step.templateUrl;
-
-          $scope.$apply();
+        currentHandler = step.Handler;
+        $injector.invoke(Wizard, this, {
+          $scope: $scope,
+          handler: currentHandler,
+          workspace: workspace
         });
+        $scope.stepTemplate = RootPath + "views/" + step.templateUrl;
       }
 
       if (step.explainUrl) {

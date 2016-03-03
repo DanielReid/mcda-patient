@@ -3,7 +3,7 @@ define(function(require) {
   var angular = require("angular");
   var _ = require("underscore");
 
-  var OrdinalSwing = function($scope, currentWorkspace, PartialValueFunction) {
+  var OrdinalSwing = function($scope, PartialValueFunction) {
     var criteria = {};
     var pvf = PartialValueFunction;
 
@@ -115,9 +115,10 @@ define(function(require) {
       fields: ['choice', 'reference', 'choices', 'standardized', 'ordinalPrefs'],
       nextState: nextState,
       save: save,
-      initialize: _.partial(initialize, currentWorkspace),
+      initialize: initialize,
       standardize: _.identity,
-      isFinished: isFinished
+      isFinished: isFinished,
+      stepCountRange: function(problem) { var n = _.size(problem.criteria); return [n - 1, n - 1]; }
     };
   };
 

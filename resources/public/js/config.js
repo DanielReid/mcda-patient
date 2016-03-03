@@ -4,39 +4,39 @@ define(function(require) {
   {
     id: 'about',
     title: 'Information about the study',
-    handler: 'introduction',
+    handler: require('steps/introduction'),
     templateUrl: 'about.html'
   }, {
     id: 'consent',
     title: 'Consent form',
-    handler: 'consent',
+    handler: require('steps/consent'),
     templateUrl: 'consent.html'
   }, {
     id: 'demographics',
     title: 'Demographics',
-    handler: 'demographics',
+    handler: require('steps/demographics'),
     templateUrl: 'demographics.html'
   }, {
     id: 'outcomes',
     title: 'Outcomes',
-    handler: 'introduction',
+    handler: require('steps/introduction'),
     templateUrl: 'outcomes.html'
   }, {
     id: 'difference-pvf',
     title: 'Difference PVF',
-    handler: 'differencePvf',
+    handler: require('steps/differencePvf'),
     templateUrl: 'differencePvf.html',
     explainUrl: 'explainDifferencePvf.html'
   }, {
     id: 'ordinal-swing',
     title: 'Ordinal Swing Elicitation',
-    handler: 'ordinalSwing',
+    handler: require('steps/ordinalSwing'),
     templateUrl: 'ordinalSwing.html',
     explainUrl: 'explainOrdinal.html'
   }, {
     id: 'bisection-swing',
     title: 'Bisection Swing Elicitation',
-    handler: 'bisectionSwing',
+    handler: require('steps/bisectionSwing'),
     templateUrl: 'bisectionSwing.html',
     explainUrl: 'explainTradeOff.html'
   }];

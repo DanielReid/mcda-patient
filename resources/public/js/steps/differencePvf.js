@@ -1,7 +1,7 @@
 'use strict';
 
 define(['angular', 'underscore', 'differencePvf'], function(angular, _, DifferencePvf) {
-  return function($scope, currentWorkspace) {
+  return function($scope) {
     var nIntervals = 3;
     var criteria = {};
     var criteriaOrder = [];
@@ -86,11 +86,12 @@ define(['angular', 'underscore', 'differencePvf'], function(angular, _, Differen
 
     return {
       fields: ['criterion', 'criterionInfo', 'intervals', 'choice', 'question', 'pvfPrefs'],
-      initialize: _.partial(initialize, currentWorkspace),
+      initialize: initialize,
       standardize: _.identity,
       nextState: nextState,
       validChoice: validChoice,
       isFinished: isFinished,
+      stepCountRange: function(problem) { var n = _.size(problem.criteria); return [2 * n, 3 * n]; },
       save: save
     };
   };

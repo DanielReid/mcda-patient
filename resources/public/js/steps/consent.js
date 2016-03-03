@@ -1,19 +1,14 @@
 'use strict';
-define(function(require) {
-  var _ = require("underscore");
-  var angular = require("angular");
-
-  var Introduction = function($scope, currentWorkspace) {
+define(['angular', 'underscore'], function(angular, _) {
+  return function($scope) {
     return {
       fields: ["consent"],
       standardize: _.identity,
-      initialize: _.partial(_.identity, currentWorkspace),
+      initialize: _.identity,
       nextState: _.identity,
       validChoice: function(state) { return state.consent === "consent"; },
-      isFinished: function(state) { return state.consent === "consent"; }
+      isFinished: function(state) { return state.consent === "consent"; },
+      stepCountRange: function(problem) { return [1, 1]; }
     };
   };
-
-  return Introduction;
-
 });

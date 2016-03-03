@@ -27,8 +27,8 @@ define(['steps/differencePvf'], function(Step) {
             }
           }
         };
-        var step = Step(scope, workspace);
-        var state = step.initialize();
+        var step = Step(scope);
+        var state = step.initialize(workspace);
         expect(state.criterion).toEqual("A");
         expect(state.pvfPrefs).toEqual({ "A": [], "B": [] });
         var intervals = {
@@ -69,8 +69,8 @@ define(['steps/differencePvf'], function(Step) {
             }
           }
         };
-        var step = Step(scope, workspace);
-        var state = step.initialize();
+        var step = Step(scope);
+        var state = step.initialize(workspace);
 
         state.choice = '=';
         state = step.nextState(state);
@@ -113,8 +113,8 @@ define(['steps/differencePvf'], function(Step) {
             }
           }
         };
-        var step = Step(scope, workspace);
-        var state = step.initialize();
+        var step = Step(scope);
+        var state = step.initialize(workspace);
         state.choice = '=';
         state = step.nextState(state);
         state.choice = '=';
