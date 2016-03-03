@@ -31,6 +31,7 @@ define(function(require) {
       criteria = state.problem.criteria;
       var fields = {
         title: title(1),
+        stepsRemaining: _.size(criteria) - 1,
         ordinalPrefs: [],
         reference: getReference(),
         choices: (function() {
@@ -69,6 +70,7 @@ define(function(require) {
         nextState.reference[choice] = pvf.best(state.problem.criteria[choice]);
         nextState.ordinalPrefs.push(choice);
         nextState.title = title(nextState.ordinalPrefs.length + 1);
+        nextState.stepsRemaining -= 1;
       }
       next(choice);
 
@@ -112,7 +114,7 @@ define(function(require) {
 
     return {
       validChoice: validChoice,
-      fields: ['choice', 'reference', 'choices', 'standardized', 'ordinalPrefs'],
+      fields: ['choice', 'reference', 'choices', 'standardized', 'ordinalPrefs', 'stepsRemaining'],
       nextState: nextState,
       save: save,
       initialize: initialize,

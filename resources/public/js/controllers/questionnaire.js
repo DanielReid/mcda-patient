@@ -19,16 +19,15 @@ define(['angular', 'underscore', './helpers/wizard'], function(angular, _, Wizar
 
     var currentHandler = null;
 
-    $scope.progress = 0;
+    $scope.progress = { total: nSteps, remain: nSteps, current: 0 };
 
     if (!currentWorkspace.answers) {
       currentWorkspace.answers = {};
     }
 
     var initializeStep = function(step, workspace) {
-      var nRemain = countSteps(steps) + step.nSteps;
-      console.log(nRemain, nSteps);
-      $scope.progress = (nSteps - nRemain) / nSteps * 100;
+      $scope.progress.remain = countSteps(steps);
+      $scope.progress.current = step.nSteps;
 
       var doInitialize = function() {
         currentHandler = step.Handler;

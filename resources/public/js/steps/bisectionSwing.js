@@ -51,7 +51,8 @@ define(function(require) {
     var initialize = function(state) {
       criteria = state.problem.criteria;
       state = _.extend(state, {
-        'criteriaOrder': getCriteriaOrder(state.prefs)
+        'criteriaOrder': getCriteriaOrder(state.prefs),
+        'stepsRemaining': (_.size(state.problem.criteria) - 1) * 2
       });
 
       state = _.extend(state, buildInitial(state, state.criteriaOrder[0], state.criteriaOrder[1], 1));
@@ -81,6 +82,7 @@ define(function(require) {
         } else {
           next.cutoff = 0.25;
         }
+        next.stepsRemaining = state.stepsRemaining - 1
         return _.extend(_.omit(angular.copy(state), "choice"), next);
       }
 
@@ -88,7 +90,8 @@ define(function(require) {
       if (idx > order.length - 2) {
         next = {
           type: 'done',
-          step: idx + 1
+          step: idx + 1,
+          stepsRemaining: state.stepsRemaining - 1
         };
       } else {
         next = buildInitial(state, order[idx], order[idx + 1], 2 * idx + 1);
@@ -116,6 +119,7 @@ define(function(require) {
         ratio: getRatioBounds(state),
         type: 'ratio bound'
       });
+      next.stepsRemaining = state.stepsRemaining - 1;
 
       return _.extend(_.omit(angular.copy(state), "choice"), next);
     };
@@ -140,7 +144,8 @@ define(function(require) {
                'criterionA',
                'criterionB',
                'cutoff',
-               'answers'],
+               'answers',
+               'stepsRemaining'],
       nextState: nextState,
       standardize: _.identity,
       save: save,

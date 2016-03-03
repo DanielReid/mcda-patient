@@ -5,6 +5,8 @@ define(['angular', 'underscore', 'differencePvf'], function(angular, _, Differen
     var nIntervals = 3;
     var criteria = {};
     var criteriaOrder = [];
+    var minQuestions = nIntervals - 1;
+    var maxQuestions = nIntervals * minQuestions / 2;
 
     var title = function() {
       return "Difference PVF";
@@ -35,7 +37,8 @@ define(['angular', 'underscore', 'differencePvf'], function(angular, _, Differen
         intervals: generateIntervals(state),
         criterion: criteriaOrder[0],
         criterionInfo: criteria[criteriaOrder[0]],
-        question: DifferencePvf.nextInterval(nIntervals, [])
+        question: DifferencePvf.nextInterval(nIntervals, []),
+        stepsRemaining: criteriaOrder.length * maxQuestions
       };
       return _.extend(state, fields);
     };
@@ -54,12 +57,14 @@ define(['angular', 'underscore', 'differencePvf'], function(angular, _, Differen
       var answers = nextState.pvfPrefs[state.criterion];
       answers.push(state.question.concat([state.choice]));
       nextState.question = DifferencePvf.nextInterval(nIntervals, answers);
+      nextState.stepsRemaining -= 1;
 
       if (!nextState.question) {
         var idx = _.indexOf(criteriaOrder, state.criterion) + 1;
         nextState.criterion = criteriaOrder[idx];
         nextState.question = DifferencePvf.nextInterval(nIntervals, []);
         nextState.criterionInfo = criteria[criteriaOrder[idx]];
+        nextState.stepsRemaining = (criteriaOrder.length - idx) * maxQuestions;
       }
 
       return nextState;
@@ -85,13 +90,13 @@ define(['angular', 'underscore', 'differencePvf'], function(angular, _, Differen
     };
 
     return {
-      fields: ['criterion', 'criterionInfo', 'intervals', 'choice', 'question', 'pvfPrefs'],
+      fields: ['criterion', 'criterionInfo', 'intervals', 'choice', 'question', 'pvfPrefs', 'stepsRemaining'],
       initialize: initialize,
       standardize: _.identity,
       nextState: nextState,
       validChoice: validChoice,
       isFinished: isFinished,
-      stepCountRange: function(problem) { var n = _.size(problem.criteria); return [2 * n, 3 * n]; },
+      stepCountRange: function(problem) { var n = _.size(problem.criteria); return [minQuestions * n, maxQuestions * n]; },
       save: save
     };
   };

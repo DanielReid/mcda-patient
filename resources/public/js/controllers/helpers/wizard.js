@@ -42,6 +42,10 @@ define(function(require) {
       state = _.pick(state, PERSISTENT_FIELDS.concat(handler.fields));
       nextState = handler.nextState(state);
 
+      if (_.isNumber(nextState.stepsRemaining)) {
+        $scope.progress.current = nextState.stepsRemaining;
+      }
+
       nextState.previousChoice = choice;
 
       nextState.intermediate = handler.standardize(nextState.prefs);
@@ -58,6 +62,11 @@ define(function(require) {
       nextStates.push(angular.copy($scope.state));
 
       var previousState = previousStates.pop();
+
+      if (_.isNumber(previousState.stepsRemaining)) {
+        $scope.progress.current = previousState.stepsRemaining;
+      }
+
       $scope.state = previousState;
       return true;
     };

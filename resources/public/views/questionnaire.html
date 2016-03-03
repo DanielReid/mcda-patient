@@ -1,7 +1,7 @@
 <div ng-cloak="true">
   <div class="row">
     <div class="progress success radius large-10 large-offset-1">
-      <span class="meter" style="width: {{progress}}%"></span>
+      <span class="meter" style="width: {{ (progress.total - progress.remain - progress.current) / progress.total * 100 }}%"></span>
     </div>
   </div>
   <div class="row" style="min-height: 430px;">
