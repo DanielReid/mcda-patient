@@ -12,7 +12,7 @@
       to {{ state.intervals[state.criterion][state.question[0]][1] | number:1 }}{{state.criterionInfo.unitOfMeasurement}}
     </label>
     <label>
-      <input value="=" type="radio" ng-model="state.choice">
+      <input value="<" type="radio" ng-model="state.choice">
       A treatment that
       {{ state.criterionInfo.pvf.direction === "decreasing" ? "decreases" : "increases" }}
       <abbr title="{{ state.criterionInfo.description }}">{{ state.criterionInfo.title }}</abbr>
@@ -20,7 +20,7 @@
       to {{ state.intervals[state.criterion][state.question[1]][1] | number:1 }}{{state.criterionInfo.unitOfMeasurement}}
     </label>
     <label>
-      <input value="<" type="radio" ng-model="state.choice">
+      <input value="=" type="radio" ng-model="state.choice">
       Neither: both are equally desirable (or undesirable)
     </label>
   </div>
