@@ -10,5 +10,11 @@ define(function(require) {
     };
   });
 
+  filters.filter('indexAsAlpha', function() {
+    return function(input, all) {
+      return String.fromCharCode(parseInt(input) + 65);
+    }
+  });
+
   return filters;
 });
