@@ -2,33 +2,35 @@
   <div class="columns large-12">
     <h3>{{title(state.step, state.total)}}</h3>
 
-    Consider the following two options:
+    <p>Consider the following two options:</p>
 
     <dl>
       <dt>Treatment A</dt>
       <dd>
-        <label>
+        <div>
           <abbr title="{{state.a.description}}">{{state.a.title}}</abbr>
           = {{pvf.worst(state.a) | number}} {{state.a.unitOfMeasurement}}
-        </label>
-        <label>
+        </div>
+        <div>
           <abbr title="{{state.a.description}}">{{state.b.title}}</abbr>
           = {{pvf.best(state.b) | number}} {{state.b.unitOfMeasurement}}
-        </label>
+        </div>
       </dd>
 
       <dt>Treatment B</dt>
       <dd>
-        <label>{{state.a.title}} = {{pvf.inv(state.a)(state.cutoff) | number}} {{state.a.unitOfMeasurement}}</label>
-        <label>{{state.b.title}} = {{pvf.worst(state.b) | number}} {{state.b.unitOfMeasurement}}</label>
+        <div>{{state.a.title}} = {{pvf.inv(state.a)(state.cutoff) | number}} {{state.a.unitOfMeasurement}}</div>
+        <div>{{state.b.title}} = {{pvf.worst(state.b) | number}} {{state.b.unitOfMeasurement}}</div>
       </dd>
     </dl>
 
 
-    Which of these options would you prefer:
+    <p>Which of these options would you prefer:</p>
     <form>
-      <input type="radio" ng-model="state.choice" value="{{state.criterionB}}" id="criterion-b"><label for="criterion-b">Treatment A</label><br>
-      <input type="radio" ng-model="state.choice" value="{{state.criterionA}}" id="criterion-a"><label for="criterion-a">Treatment B</label>
+      <label for="criterion-b"><input type="radio" ng-model="state.choice" value="{{state.criterionB}}" id="criterion-b">
+        Treatment A</label>
+      <label for="criterion-a"><input type="radio" ng-model="state.choice" value="{{state.criterionA}}" id="criterion-a">
+        Treatment B</label>
     </form>
 
   </div>

@@ -38,10 +38,10 @@ define(function(require) {
     templateUrl: 'differencePvf.html',
     explainUrl: 'explainDifferencePvf.html'
   }, {
-    id: 'intro-os',
-    title: 'Trade-offs Involving Overall Survival',
+    id: 'intro-pfs',
+    title: 'Trade-offs Involving Time to Progression',
     handler: require('steps/introduction'),
-    templateUrl: 'intro-os.html'
+    templateUrl: 'intro-pfs.html'
   }, {
     id: 'ordinal-swing',
     title: 'Ordinal Swing Elicitation',
