@@ -17,16 +17,31 @@ define(function(require) {
     handler: require('steps/demographics'),
     templateUrl: 'demographics.html'
   }, {
-    id: 'outcomes',
-    title: 'Outcomes',
+    id: 'intro1',
+    title: 'Introduction',
     handler: require('steps/introduction'),
-    templateUrl: 'outcomes.html'
+    templateUrl: 'intro1.html'
+  }, {
+    id: 'intro2',
+    title: 'Introduction',
+    handler: require('steps/introduction'),
+    templateUrl: 'intro2.html'
+  }, {
+    id: 'intro3',
+    title: 'Introduction',
+    handler: require('steps/introduction'),
+    templateUrl: 'intro3.html'
   }, {
     id: 'difference-pvf',
     title: 'Difference PVF',
     handler: require('steps/differencePvf'),
     templateUrl: 'differencePvf.html',
     explainUrl: 'explainDifferencePvf.html'
+  }, {
+    id: 'intro-os',
+    title: 'Trade-offs Involving Overall Survival',
+    handler: require('steps/introduction'),
+    templateUrl: 'intro-os.html'
   }, {
     id: 'ordinal-swing',
     title: 'Ordinal Swing Elicitation',
