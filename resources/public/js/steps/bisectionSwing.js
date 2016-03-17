@@ -4,8 +4,11 @@ define(function(require) {
   var _ = require("underscore");
 
   return function($scope, PartialValueFunction) {
+    var ordinal = 'ordinal';
+    var output = 'bisection';
+
     var getOrdinalPreferences = function(prefs) {
-      return _.filter(prefs, function(pref) { return pref.type === "ordinal"; });
+      return _.filter(prefs, function(pref) { return pref.type === ordinal; });
     };
 
     var getCriteriaOrder = function(prefs) {
@@ -48,8 +51,11 @@ define(function(require) {
       return initial;
     }
 
-    var initialize = function(state) {
-      criteria = state.problem.criteria;
+    var initialize = function(state, settings) {
+      criteria = settings.criteriaFilter ?
+        _.pick(state.problem.criteria, settings.criteriaFilter) : state.problem.criteria;
+      ordinal = settings.ordinal ? settings.ordinal : 'ordinal' ;
+      output = settings.output ? settings.output : 'bisection' ;
       state = _.extend(state, {
         'criteriaOrder': getCriteriaOrder(state.prefs),
         'stepsRemaining': (_.size(state.problem.criteria) - 1) * 2
@@ -117,7 +123,7 @@ define(function(require) {
       next.answers.push({
         criteria: [order[idx - 1], order[idx]],
         ratio: getRatioBounds(state),
-        type: 'ratio bound'
+        type: output
       });
       next.stepsRemaining = state.stepsRemaining - 1;
 

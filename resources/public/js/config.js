@@ -1,5 +1,7 @@
 'use strict';
 define(function(require) {
+  var criteriaPFS = ['PFS', 'grade2SE', 'grade34SE'];
+  var criteriaOS = ['OS', 'grade2SE', 'grade34SE'];
   var steps = [
   {
     id: 'about',
@@ -41,19 +43,48 @@ define(function(require) {
     id: 'intro-pfs',
     title: 'Trade-offs Involving Time to Progression',
     handler: require('steps/introduction'),
-    templateUrl: 'intro-pfs.html'
+    templateUrl: 'intro-pfs.html',
+    criteriaFilter: criteriaPFS
   }, {
-    id: 'ordinal-swing',
+    id: 'ordinal-swing-pfs',
     title: 'Ordinal Swing Elicitation',
     handler: require('steps/ordinalSwing'),
     templateUrl: 'ordinalSwing.html',
-    explainUrl: 'explainOrdinal.html'
+    explainUrl: 'explainOrdinal.html',
+    criteriaFilter: criteriaPFS,
+    output: 'ordinal-pfs'
   }, {
-    id: 'bisection-swing',
+    id: 'bisection-swing-pfs',
     title: 'Bisection Swing Elicitation',
     handler: require('steps/bisectionSwing'),
     templateUrl: 'bisectionSwing.html',
-    explainUrl: 'explainTradeOff.html'
+    explainUrl: 'explainTradeOff.html',
+    criteriaFilter: criteriaPFS,
+    ordinal: 'ordinal-pfs',
+    output: 'bisection-pfs'
+  }, {
+    id: 'intro-os',
+    title: 'Trade-offs Involving Time to Progression',
+    handler: require('steps/introduction'),
+    templateUrl: 'intro-os.html',
+    criteriaFilter: criteriaOS
+  }, {
+    id: 'ordinal-swing-os',
+    title: 'Ordinal Swing Elicitation',
+    handler: require('steps/ordinalSwing'),
+    templateUrl: 'ordinalSwing.html',
+    explainUrl: 'explainOrdinal.html',
+    criteriaFilter: criteriaOS,
+    output: 'ordinal-os'
+  }, {
+    id: 'bisection-swing-os',
+    title: 'Bisection Swing Elicitation',
+    handler: require('steps/bisectionSwing'),
+    templateUrl: 'bisectionSwing.html',
+    explainUrl: 'explainTradeOff.html',
+    criteriaFilter: criteriaOS,
+    ordinal: 'ordinal-os',
+    output: 'bisection-os'
   }];
 
   return {

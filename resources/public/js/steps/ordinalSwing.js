@@ -5,6 +5,7 @@ define(function(require) {
 
   var OrdinalSwing = function($scope, PartialValueFunction) {
     var criteria = {};
+    var output = 'ordinal';
     var pvf = PartialValueFunction;
 
     $scope.pvf = pvf;
@@ -27,15 +28,16 @@ define(function(require) {
       return base + state + '/' + total;
     };
 
-    var initialize = function(state) {
-      criteria = state.problem.criteria;
+    var initialize = function(state, settings) {
+      criteria = settings.criteriaFilter ?
+        _.pick(state.problem.criteria, settings.criteriaFilter) : state.problem.criteria;
+      output = settings.output ? settings.output : 'ordinal' ;
       var fields = {
         title: title(1),
         stepsRemaining: _.size(criteria) - 1,
         ordinalPrefs: [],
         reference: getReference(),
         choices: (function() {
-          var criteria = state.problem.criteria;
           var choices = _.map(_.keys(criteria), function(criterion) {
             var reference = getReference();
             reference[criterion] = pvf.best(criteria[criterion]);
@@ -86,7 +88,7 @@ define(function(require) {
 
       function ordinal(a, b) {
         return {
-          type: 'ordinal',
+          type: output,
           criteria: [a, b]
         };
       }

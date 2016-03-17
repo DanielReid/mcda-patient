@@ -26,6 +26,7 @@ define(['angular', 'underscore', './helpers/wizard'], function(angular, _, Wizar
     }
 
     var initializeStep = function(step, workspace) {
+      $scope.nCriteria = step.criteriaFilter ? step.criteriaFilter.length : _.size(currentWorkspace.problem.criteria);
       $scope.progress.remain = countSteps(steps);
       $scope.progress.current = step.nSteps;
 
@@ -34,7 +35,8 @@ define(['angular', 'underscore', './helpers/wizard'], function(angular, _, Wizar
         $injector.invoke(Wizard, this, {
           $scope: $scope,
           handler: currentHandler,
-          workspace: workspace
+          workspace: workspace,
+          settings: step
         });
         $scope.stepTemplate = RootPath + "views/" + step.templateUrl;
       }
