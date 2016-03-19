@@ -23,7 +23,7 @@
     "basic-auth": "~1.0.3",
     "express": "~4.13.3",
     "swig": "~1.4.2",
-    "sequelize": "~3.14.1",
+    "sequelize": "~3.19.3",
     "pg": "~4.4.3",
     "body-parser": "~1.14.1",
     "requirejs": "~2.1.22",
