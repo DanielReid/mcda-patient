@@ -21,10 +21,9 @@
     by the same amount, but the starting values are different.
     Some individuals may feel that all of these advancements are equally valuable while other individuals may feel that one advancement is more valuable than another.</p>
 
-    <p>Which of the following statements best describes how much you value advancement
-    {{state.question[0] | indexAsAlpha }}
-    relative to advancement
-    {{state.question[1] | indexAsAlpha }}?</p>
+    <p>Which of the following statements best describes how much you value the
+    {{ state.criterionInfo.pvf.direction === "decreasing" ? "decreases" : "increases" }}
+    shown?</p>
     <label>
       <input value=">" type="radio" ng-model="state.choice">
       {{state.question[0] | indexAsAlpha }} is more valuable than {{state.question[1] | indexAsAlpha }}
