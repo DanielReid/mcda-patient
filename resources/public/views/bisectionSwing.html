@@ -9,18 +9,18 @@
       <dd>
         <div>
           <abbr title="{{state.a.description}}">{{state.a.title}}</abbr>
-          = {{pvf.worst(state.a) | number}} {{state.a.unitOfMeasurement}}
+          = {{ pvf.worst(state.a) | number:0 }} {{state.a.unitOfMeasurement}}
         </div>
         <div>
           <abbr title="{{state.b.description}}">{{state.b.title}}</abbr>
-          = {{pvf.best(state.b) | number}} {{state.b.unitOfMeasurement}}
+          = {{ pvf.best(state.b) | number:0 }} {{state.b.unitOfMeasurement}}
         </div>
       </dd>
 
       <dt>Treatment B</dt>
       <dd>
-        <div>{{state.a.title}} = {{pvf.inv(state.a)(state.cutoff) | number}} {{state.a.unitOfMeasurement}}</div>
-        <div>{{state.b.title}} = {{pvf.worst(state.b) | number}} {{state.b.unitOfMeasurement}}</div>
+        <div>{{state.a.title}} = {{pvf.inv(state.a)(state.cutoff) | number:0 }} {{state.a.unitOfMeasurement}}</div>
+        <div>{{state.b.title}} = {{pvf.worst(state.b) | number:0 }} {{state.b.unitOfMeasurement}}</div>
       </dd>
     </dl>
 

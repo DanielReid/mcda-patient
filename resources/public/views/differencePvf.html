@@ -10,8 +10,8 @@
       <li ng-repeat="interval in state.intervals[state.criterion]">
         {{ $index | indexAsAlpha }}:
         {{ state.criterionInfo.pvf.direction === "decreasing" ? "a decrease" : "an increase" }}
-        from {{ interval[0] | number:1 }}{{state.criterionInfo.unitOfMeasurement}}
-        to {{ interval[1] | number:1 }}{{state.criterionInfo.unitOfMeasurement}}
+        from {{ interval[0] | number:0 }}{{state.criterionInfo.unitOfMeasurement}}
+        to {{ interval[1] | number:0 }}{{state.criterionInfo.unitOfMeasurement}}
       </li>
     </ul>
 
