@@ -26,7 +26,8 @@
     "sequelize": "~3.14.1",
     "pg": "~4.4.3",
     "body-parser": "~1.14.1",
-    "requirejs": "~2.1.22"
+    "requirejs": "~2.1.22",
+    "lodash": "~4.6.1"
   },
   "devDependencies": {
     "jasmine": "~2.4.1",

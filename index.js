@@ -4,6 +4,7 @@ var auth = require('./auth'); // HTTP basic authentication
 var swig = require('swig'); // templates
 var Sequelize = require('sequelize'); // ORM
 var bodyParser = require('body-parser');
+var _ = require('lodash');
 
 app.use(bodyParser.urlencoded({extended: true}));
 app.use(bodyParser.json());
@@ -22,6 +23,8 @@ var db = new Sequelize(
     host: process.env.SURVEY_DB_HOST,
     dialect: 'postgres'
   });
+
+var host = process.env.SURVEY_WEB_HOST;
 
 var Questionnaire = db.define('questionnaire', {
   id: {
@@ -84,6 +87,7 @@ function surveyNotFound(res, url) {
 
 function internalServerError(res) {
   return function (error) {
+    console.log(error);
     res.status(500).send(error);
     res.end();
   };
@@ -169,6 +173,24 @@ app.get('/admin/:id', function(req, res) {
         questionnaire: qnaire,
         results: results
       });
+    }).catch(internalServerError(res));
+  }).catch(internalServerError(res));
+});
+
+app.get('/admin/:id/export-urls', function(req, res) {
+  Questionnaire.findById(req.params.id).then(function(qnaire) {
+    Result.findAll({"where": {"questionnaire_id": req.params.id}}).then(function(results) {
+      var urls = _.map(results, function(r) { return host + "/" + r.url});
+      console.log(urls);
+      res.end(urls.join("\r\n"));
+    }).catch(internalServerError(res));
+  }).catch(internalServerError(res));
+});
+
+app.get('/admin/:id/export-results', function(req, res) {
+  Questionnaire.findById(req.params.id).then(function(qnaire) {
+    Result.findAll({"where": {"questionnaire_id": req.params.id}}).then(function(results) {
+      res.end(JSON.stringify(results));
     }).catch(internalServerError(res));
   }).catch(internalServerError(res));
 });
