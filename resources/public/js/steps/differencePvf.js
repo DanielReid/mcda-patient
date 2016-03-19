@@ -26,9 +26,9 @@ define(['angular', 'underscore', 'differencePvf'], function(angular, _, Differen
       return _.mapObject(state.problem.criteria, generate);
     };
 
-    var initialize = function(state) {
+    var initialize = function(state, settings) {
       criteria = state.problem.criteria;
-      criteriaOrder = _.sortBy(_.keys(criteria));
+      criteriaOrder = settings.criteriaFilter ? settings.criteriaFilter : _.sortBy(_.keys(criteria));
       var answers = _.mapObject(criteria, function() { return []; });
       var fields = {
         title: title(),

@@ -38,7 +38,8 @@ define(function(require) {
     title: 'Difference PVF',
     handler: require('steps/differencePvf'),
     templateUrl: 'differencePvf.html',
-    explainUrl: 'explainDifferencePvf.html'
+    explainUrl: 'explainDifferencePvf.html',
+    criteriaFilter: ['PFS', 'OS', 'grade2SE', 'grade34SE']
   }, {
     id: 'intro-pfs',
     title: 'Trade-offs Involving Time to Progression',
