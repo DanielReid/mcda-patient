@@ -1,7 +1,7 @@
 'use strict';
 define(['angular', 'underscore', './helpers/wizard'], function(angular, _, Wizard, require) {
 
-  return function(Config, $scope, $state, $injector, $http, currentWorkspace, RootPath) {
+  return function(Config, $window, $scope, $state, $injector, $http, currentWorkspace, RootPath) {
     if (currentWorkspace.answers && currentWorkspace.answers.done) {
       $state.go('thankYou');
       return;
@@ -50,6 +50,8 @@ define(['angular', 'underscore', './helpers/wizard'], function(angular, _, Wizar
       } else {
         doInitialize();
       }
+
+      $window.scrollTo(0,0);
     };
 
     $scope.nCriteria = _.size(currentWorkspace.problem.criteria);

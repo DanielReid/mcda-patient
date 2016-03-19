@@ -3,7 +3,7 @@ define(function(require) {
   var angular = require("angular");
   var _ = require("underscore");
 
-  return function($scope, handler, workspace, settings) {
+  return function($window, $scope, handler, workspace, settings) {
     var PERSISTENT_FIELDS = ["problem", "type", "prefs"];
     var previousStates =  [];
     var nextStates = [];
@@ -34,6 +34,7 @@ define(function(require) {
       var nextState = nextStates.pop();
       if (nextState && _.isEqual(nextState.previousChoice, choice)) {
         $scope.state = nextState;
+        $window.scrollTo(0,0);
         return true;
       } else {
         nextStates = [];
@@ -51,6 +52,8 @@ define(function(require) {
       nextState.intermediate = handler.standardize(nextState.prefs);
 
       $scope.state = nextState;
+
+      $window.scrollTo(0,0);
       return true;
     };
 
@@ -68,6 +71,7 @@ define(function(require) {
       }
 
       $scope.state = previousState;
+      $window.scrollTo(0,0);
       return true;
     };
   };
