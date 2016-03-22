@@ -34,13 +34,6 @@ define(function(require) {
     handler: require('steps/introduction'),
     templateUrl: 'intro3.html'
   }, {
-    id: 'difference-pvf',
-    title: 'Difference PVF',
-    handler: require('steps/differencePvf'),
-    templateUrl: 'differencePvf.html',
-    explainUrl: 'explainDifferencePvf.html',
-    criteriaFilter: ['PFS', 'OS', 'grade2SE', 'grade34SE']
-  }, {
     id: 'intro-pfs',
     title: 'Trade-offs Involving Time to Progression',
     handler: require('steps/introduction'),
@@ -86,6 +79,13 @@ define(function(require) {
     criteriaFilter: criteriaOS,
     ordinal: 'ordinal-os',
     output: 'bisection-os'
+  }, {
+    id: 'difference-pvf',
+    title: 'Difference PVF',
+    handler: require('steps/differencePvf'),
+    templateUrl: 'differencePvf.html',
+    explainUrl: 'explainDifferencePvf.html',
+    criteriaFilter: ['PFS', 'OS', 'grade2SE', 'grade34SE']
   }];
 
   return {
