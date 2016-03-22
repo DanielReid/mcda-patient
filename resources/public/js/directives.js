@@ -155,5 +155,19 @@ define(function(require) {
     };
   });
 
+  directives.directive('desc', function() {
+    return {
+      restrict: 'E',
+      transclude: true,
+      scope: {
+        'text': '@title'
+      },
+      template: '<span><a dropdown-toggle="#{{dropdownId}}" ng-transclude></a><div id="{{dropdownId}}" class="f-dropdown content medium">{{text}}</div></span>',
+      controller: function($scope) {
+        $scope.dropdownId = "desc-" + (Math.random()*1e32).toString(36);
+      }
+    };
+  });
+
   return directives;
 });

@@ -8,11 +8,11 @@
       <dt>Treatment A</dt>
       <dd>
         <div>
-          <abbr title="{{state.a.description}}">{{state.a.title}}</abbr>
+          <desc title="{{state.a.description}}">{{state.a.title}}</desc>
           = {{ pvf.worst(state.a) | number:0 }} {{state.a.unitOfMeasurement}}
         </div>
         <div>
-          <abbr title="{{state.b.description}}">{{state.b.title}}</abbr>
+          <desc title="{{state.b.description}}">{{state.b.title}}</desc>
           = {{ pvf.best(state.b) | number:0 }} {{state.b.unitOfMeasurement}}
         </div>
       </dd>
