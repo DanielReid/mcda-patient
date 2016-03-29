@@ -15,15 +15,10 @@
     </ul>
 
 
-    <div ng-if="state.ordinalPrefs.length == 0">
-      <p>You are given the opportunity to upgrade the performance of this treatment on one of these outcomes.<br>
-        Which of the following options would you prefer:</p>
+    <div>
+      <p>If you could improve this treatment, which of the following would you prefer?<br>
+      Mark only one.</p>
     </div>
-    <div ng-if="state.ordinalPrefs.length > 0">
-      <p>You are given the opportunity to upgrade the performance of this treatment on yet another outcome.<br>
-        Which of the following options would you prefer:</p>
-    </div>
-
 
     <form>
       <label ng-repeat="(choice, alternative) in state.choices" ng-init="c = state.problem.criteria[choice]">

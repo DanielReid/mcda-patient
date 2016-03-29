@@ -29,7 +29,7 @@ define(function(require) {
     $scope.pvf = pvf;
 
     $scope.title = function(step, total) {
-      var base = 'Choose a treatment - ';
+      var base = 'Trade-offs - ';
       if (step > total) {
         return base + ' (DONE)';
       }

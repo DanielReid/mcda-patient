@@ -20,7 +20,7 @@ define(function(require) {
     };
 
     var title = function(state) {
-      var base = 'Choose an improvement - ';
+      var base = 'What matters most? - ';
       var total = (_.size(criteria) - 1);
       if (state > total) {
         return base + ' (DONE)';

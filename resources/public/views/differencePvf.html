@@ -1,9 +1,11 @@
 <div class="row">
   <div class="columns large-12">
-    <h3>Rate advancements in {{state.criterionInfo.title}} ({{ state.pvfPrefs[state.criterion].length + 1 }}/3)</h3>
+    <h3>Improving {{state.criterionInfo.title}} ({{ state.pvfPrefs[state.criterion].length + 1 }}/3)</h3>
 
-    <p>Consider three advancements in
-    <desc title="{{ state.criterionInfo.description }}">{{state.criterionInfo.title}}</desc>
+    <p>
+      Imagine there are 3 treatments that can {{ state.criterionInfo.pvf.direction === "decreasing" ? "decrease" : "increase" }} the
+      <desc title="{{ state.criterionInfo.description }}">{{state.criterionInfo.title}}</desc>
+      by the same amount, but for different conditions before and after the treatment:
     </p>
 
     <ul>
@@ -15,15 +17,8 @@
       </li>
     </ul>
 
-    <p>Each of these advancements
-    {{ state.criterionInfo.pvf.direction === "decreasing" ? "decreases" : "increases" }}
-    {{ state.criterionInfo.title }}
-    by the same amount, but the starting values are different.
-    Some individuals may feel that all of these advancements are equally valuable while other individuals may feel that one advancement is more valuable than another.</p>
+    <p>Which of the following statements best describes how you feel?</p>
 
-    <p>Which of the following statements best describes how much you value the
-    {{ state.criterionInfo.pvf.direction === "decreasing" ? "decreases" : "increases" }}
-    shown?</p>
     <label>
       <input value=">" type="radio" ng-model="state.choice">
       {{state.question[0] | indexAsAlpha }} is more valuable than {{state.question[1] | indexAsAlpha }}
