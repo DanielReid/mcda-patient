@@ -1,35 +1,38 @@
 <div class="row">
   <div class="columns large-12">
-    <h3>Improving {{state.criterionInfo.title}} ({{ state.pvfPrefs[state.criterion].length + 1 }}/3)</h3>
+    <h3>How satisfying do you think each step in an improvement process is?</h3>
+
+<!--  {{ state.criterionInfo.pvf.direction === "decreasing" ? "decrease" : "increase" }} the -->
 
     <p>
-      Imagine there are 3 treatments that can {{ state.criterionInfo.pvf.direction === "decreasing" ? "decrease" : "increase" }} the
-      <desc title="{{ state.criterionInfo.description }}">{{state.criterionInfo.title}}</desc>
-      by the same amount, but for different conditions before and after the treatment:
+      Imagine {{state.criterionInfo.pvf.direction}} <desc title="{{ state.criterionInfo.description }}">{{state.criterionInfo.title}}</desc>
+      from {{state.intervals[state.criterion][0][0]|number:0}}{{state.criterionInfo.unitOfMeasurement}}
+       to  {{state.intervals[state.criterion][state.intervals[state.criterion].length-1][1]|number:0}} {{state.criterionInfo.unitOfMeasurement}} in three equal steps:
     </p>
 
     <ul>
       <li ng-repeat="interval in state.intervals[state.criterion]">
         {{ $index | indexAsAlpha }}:
-        {{ state.criterionInfo.pvf.direction === "decreasing" ? "a decrease" : "an increase" }}
+        going
         from {{ interval[0] | number:0 }}{{state.criterionInfo.unitOfMeasurement}}
         to {{ interval[1] | number:0 }}{{state.criterionInfo.unitOfMeasurement}}
       </li>
     </ul>
 
-    <p>Which of the following statements best describes how you feel?</p>
+    <p>Which of the following statements best describes how you feel?  (question {{state.pvfPrefs[state.criterion].length + 1 }} of at most 3)</p>
 
     <label>
       <input value=">" type="radio" ng-model="state.choice">
-      {{state.question[0] | indexAsAlpha }} is more valuable than {{state.question[1] | indexAsAlpha }}
+      {{state.question[0] | indexAsAlpha }} is more satisfying to me than {{state.question[1] | indexAsAlpha }}
     </label>
     <label>
       <input value="<" type="radio" ng-model="state.choice">
-      {{state.question[1] | indexAsAlpha }} is more valuable than {{state.question[0] | indexAsAlpha }}
+      {{state.question[1] | indexAsAlpha }} is more satisfying to me than {{state.question[0] | indexAsAlpha }}
     </label>
     <label>
       <input value="=" type="radio" ng-model="state.choice">
-      {{state.question[0] | indexAsAlpha }} and {{state.question[1] | indexAsAlpha }} are equally valuable
+      {{state.question[0] | indexAsAlpha }} and {{state.question[1] | indexAsAlpha }} are equally satisfying
     </label>
   </div>
 </div>
+

@@ -1,3 +1,4 @@
+'use strict';
 define(['underscore'], function(_) {
   function ffind(forest, idx) {
     for (var i = 0; i < forest.c.length; ++i) {
@@ -93,7 +94,7 @@ define(['underscore'], function(_) {
     if (n + 1 < nIntervals) {
       return [n, n + 1];
     }
-    
+
     var forest = { v: [], c: this.forest(nIntervals, answers) };
     if (!this.isComplete(forest.c)) {
       var upperDiagonal = [].concat.apply([],
@@ -146,7 +147,7 @@ define(['underscore'], function(_) {
       if (answer[0] < 0 || answer[0] >= nIntervals || answer[1] < 0 || answer[1] >= nIntervals) {
         throw new Error("Node index out of bounds");
       }
-        
+
       switch (answer[2]) {
         case "=":
           return handleEqual(forest, [answer[0], answer[1]]);
