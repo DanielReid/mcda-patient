@@ -227,6 +227,6 @@ app.post('/:survey', function(req, res) {
 
 Questionnaire.sync().then(function() {
   Result.sync().then(function() {
-    app.listen(8081);
+    app.listen(8080);
   });
 });
