@@ -164,7 +164,7 @@ define(function(require) {
       },
       template: '<span><a dropdown-toggle="#{{dropdownId}}" ng-transclude></a><div id="{{dropdownId}}" class="f-dropdown content medium">{{text}}</div></span>',
       controller: function($scope) {
-        $scope.dropdownId = "desc-" + (Math.random()*1e32).toString(36);
+        $scope.dropdownId = "desc-" + (Math.random().toString(36)+'00000000000000000').slice(2, 16+2);
       }
     };
   });
