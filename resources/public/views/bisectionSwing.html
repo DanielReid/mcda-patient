@@ -19,8 +19,12 @@
 
       <dt>Treatment B</dt>
       <dd>
-        <div>{{state.a.title}} = {{pvf.inv(state.a)(state.cutoff) | number:0 }} {{state.a.unitOfMeasurement}}</div>
-        <div>{{state.b.title}} = {{pvf.worst(state.b) | number:0 }} {{state.b.unitOfMeasurement}}</div>
+        <div>
+          <desc title="{{state.a.description}}">{{state.a.title}}</desc>
+          = {{pvf.inv(state.a)(state.cutoff) | number:0 }} {{state.a.unitOfMeasurement}}</div>
+        <div>
+          <desc title="{{state.b.description}}">{{state.b.title}}</desc>
+          = {{pvf.worst(state.b) | number:0 }} {{state.b.unitOfMeasurement}}</div>
       </dd>
     </dl>
 
