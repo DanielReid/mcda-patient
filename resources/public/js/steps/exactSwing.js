@@ -30,7 +30,7 @@ define(function(require) {
       if (step > total) {
         return base + ' (DONE)';
       }
-      return base + ' (' + step + '/' + total + ')';
+      return base + ' (question ' + step + ' of ' + total + ')';
     };
 
     function buildInitial(criterionA, criterionB, step) {

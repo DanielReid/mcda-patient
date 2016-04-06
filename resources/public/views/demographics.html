@@ -1,13 +1,9 @@
 <div>
   <h3>About yourself</h3>
 
-  <p>In this section, we ask you to tell us about your personal situation through a number of multiple-choice questions. Please try to complete every question by choosing the answer that reflects your situation best.</p>
-
   <p ng-show="!state.questions">No questions have been defined.</p>
 
   <div ng-show="state.questions">
-    <p>In total, this part of the survey will consist of {{state.questions.length}} questions.</p>
-
     <div ng-repeat="question in state.questions">
       {{question.question}}
       <label ng-repeat="answer in question.answers">
