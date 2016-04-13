@@ -19,6 +19,12 @@ define(function(require) {
     handler: require('steps/demographics'),
     templateUrl: 'demographics.html'
   }, {
+    id: 'intro-pfs',
+    title: '',
+    handler: require('steps/introduction'),
+    templateUrl: 'intro-pfs.html',
+    criteriaFilter: criteriaPFS
+  }, {
     id: 'ordinal-swing-pfs',
     title: 'What improvement matters most to you?',
     handler: require('steps/ordinalSwing'),
@@ -33,6 +39,12 @@ define(function(require) {
     criteriaFilter: criteriaPFS,
     ordinal: 'ordinal-pfs',
     output: 'bisection-pfs'
+  }, {
+    id: 'intro-os',
+    title: '',
+    handler: require('steps/introduction'),
+    templateUrl: 'intro-os.html',
+    criteriaFilter: criteriaOS
   }, {
     id: 'ordinal-swing-os',
     title: 'What improvement matters most to you?',
@@ -53,6 +65,7 @@ define(function(require) {
     title: 'How does the starting condition influence your opinion of an improvement?',
     handler: require('steps/differencePvf'),
     templateUrl: 'differencePvf.html',
+    explainUrl: 'explainDifferencePvf.html',
     criteriaFilter: ['PFS', 'OS', 'grade2SE', 'grade34SE']
   }];
 
