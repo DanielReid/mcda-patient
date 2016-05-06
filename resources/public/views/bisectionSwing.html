@@ -5,7 +5,7 @@
     <p>Imagine the following two treatment options:</p>
 
     <dl>
-      <dt>Treatment A</dt>
+      <dt>Treatment {{ state.aLabel }}</dt>
       <dd>
         <div>
           <desc title="{{state.a.description}}">{{state.a.title}}</desc>
@@ -17,7 +17,7 @@
         </div>
       </dd>
 
-      <dt>Treatment B</dt>
+      <dt>Treatment {{ state.bLabel }}</dt>
       <dd>
         <div>
           <desc title="{{state.a.description}}">{{state.a.title}}</desc>
@@ -32,9 +32,9 @@
     <p>Which treatment would you prefer?</p>
     <form>
       <label for="criterion-b"><input type="radio" ng-model="state.choice" value="{{state.criterionB}}" id="criterion-b">
-        Treatment A</label>
+        Treatment {{state.aLabel}}</label>
       <label for="criterion-a"><input type="radio" ng-model="state.choice" value="{{state.criterionA}}" id="criterion-a">
-        Treatment B</label>
+        Treatment {{state.bLabel}}</label>
     </form>
 
   </div>

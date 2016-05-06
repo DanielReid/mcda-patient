@@ -36,6 +36,13 @@ define(function(require) {
       return base + ' (question ' + step + ' of ' + total + ')';
     };
 
+    function buildLabels(step) {
+      return {
+        aLabel: String.fromCharCode(65 + (step - 1) * 2),
+        bLabel: String.fromCharCode(66 + (step - 1) * 2),
+      };
+    }
+
     function buildInitial(state, criterionA, criterionB, step) {
       var bounds = pvf.getBounds(criteria[criterionA]);
       var initial = {
@@ -48,7 +55,7 @@ define(function(require) {
         b: state.problem.criteria[criterionB],
         answers: []
       };
-      return initial;
+      return _.extend(initial, buildLabels(step));
     }
 
     var initialize = function(state, settings) {
@@ -89,6 +96,7 @@ define(function(require) {
           next.cutoff = 0.25;
         }
         next.stepsRemaining = state.stepsRemaining - 1
+        next = _.extend(next, buildLabels(next.step));
         return _.extend(_.omit(angular.copy(state), "choice"), next);
       }
 
