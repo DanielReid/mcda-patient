@@ -61,11 +61,11 @@ define(function(require) {
     ordinal: 'ordinal-os',
     output: 'bisection-os'
   }, {
-    id: 'difference-pvf',
+    id: 'simple-pvf',
     title: 'How does the starting condition influence your opinion of an improvement?',
-    handler: require('steps/differencePvf'),
-    templateUrl: 'differencePvf.html',
-    explainUrl: 'explainDifferencePvf.html',
+    handler: require('steps/simplePvf'),
+    templateUrl: 'simplePvf.html',
+    explainUrl: 'explainSimplePvf.html',
     criteriaFilter: ['PFS', 'OS', 'grade2SE', 'grade34SE']
   }];
 

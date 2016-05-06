@@ -1,0 +1,36 @@
+<div class="row">
+  <div class="columns large-12">
+    <h3>How important do you think these improvements are?</h3>
+
+    <p><strong>Scenario {{ state.step }}</strong> &mdash; <desc title="{{ state.criterionInfo.description }}">{{state.criterionInfo.title}}</desc></p>
+
+    <p>Please tell us how important you think each of these improvements are by indicating if they are ‘Very important’, ‘quite important’, or ‘not very important’.
+
+    <table>
+      <thead>
+        <tr>
+          <th></th>
+          <th>Very important</th>
+          <th>Quite important</th>
+          <th>Not very important</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr ng-repeat="interval in state.intervals[state.criterion] track by $index">
+          <td>Improvement {{ $index | indexAsAlpha }}:
+            <desc title="{{ state.criterionInfo.description }}">{{state.criterionInfo.title}}</desc>
+            is {{ state.criterionInfo.pvf.direction == "decreasing" ? "decreased" : "increased" }}
+            from {{ interval[0] | number:0 }}{{state.criterionInfo.unitOfMeasurement}}
+            to {{ interval[1] | number:0 }}{{state.criterionInfo.unitOfMeasurement}}
+          </td>
+          <td><input type="radio" value="3" ng-model="state.choice[$index]"></td>
+          <td><input type="radio" value="2" ng-model="state.choice[$index]"></td>
+          <td><input type="radio" value="1" ng-model="state.choice[$index]"></td>
+        </tr>
+      </tbody>
+    </table>
+
+  </div>
+</div>
+
+
