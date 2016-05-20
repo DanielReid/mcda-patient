@@ -67,6 +67,11 @@ define(function(require) {
     templateUrl: 'simplePvf.html',
     explainUrl: 'explainSimplePvf.html',
     criteriaFilter: ['PFS', 'OS', 'grade2SE', 'grade34SE']
+  }, {
+    id: 'closing',
+    title: 'Your feedback',
+    handler: require('steps/closing'),
+    templateUrl: 'closing.html'
   }];
 
   return {
