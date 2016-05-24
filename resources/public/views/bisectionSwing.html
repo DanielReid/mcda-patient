@@ -1,35 +1,29 @@
 <div class="row">
   <div class="columns large-12">
-    <h3>{{title(state.step, state.total)}}</h3>
+    <h3>Choosing between treatments</h3>
 
-    <p>Imagine the following two treatment options:</p>
+    <p>Please consider the following two treatment options, {{ state.aLabel }} and {{ state.bLabel }}:</p>
 
     <dl>
-      <dt>Treatment {{ state.aLabel }}</dt>
+      <dt>Treatment {{ state.aLabel }} involves</dt>
       <dd>
-        <div>
-          <desc title="{{state.a.description}}">{{state.a.title}}</desc>
-          = {{ pvf.worst(state.a) | number:0 }} {{state.a.unitOfMeasurement}}
-        </div>
-        <div>
-          <desc title="{{state.b.description}}">{{state.b.title}}</desc>
-          = {{ pvf.best(state.b) | number:0 }} {{state.b.unitOfMeasurement}}
-        </div>
+        <ul>
+          <li>{{state.a.title}} = {{ pvf.worst(state.a) | number:0 }}{{state.a.unitOfMeasurement}}</li>
+          <li>{{state.b.title}} = {{ pvf.best(state.b) | number:0 }}{{state.b.unitOfMeasurement}}</li>
+        </ul>
       </dd>
 
-      <dt>Treatment {{ state.bLabel }}</dt>
+      <dt>Treatment {{ state.bLabel }} involves</dt>
       <dd>
-        <div>
-          <desc title="{{state.a.description}}">{{state.a.title}}</desc>
-          = {{pvf.inv(state.a)(state.cutoff) | number:0 }} {{state.a.unitOfMeasurement}}</div>
-        <div>
-          <desc title="{{state.b.description}}">{{state.b.title}}</desc>
-          = {{pvf.worst(state.b) | number:0 }} {{state.b.unitOfMeasurement}}</div>
+        <ul>
+          <li>{{state.a.title}} = {{pvf.inv(state.a)(state.cutoff) | number:0 }}{{state.a.unitOfMeasurement}}</li>
+          <li>{{state.b.title}} = {{pvf.worst(state.b) | number:0 }}{{state.b.unitOfMeasurement}}</li>
+        </ul>
       </dd>
     </dl>
 
 
-    <p>Which treatment would you prefer?</p>
+    <p>Based on this information which treatment would you prefer?</p>
     <form>
       <label for="criterion-b"><input type="radio" ng-model="state.choice" value="{{state.criterionB}}" id="criterion-b">
         Treatment {{state.aLabel}}</label>

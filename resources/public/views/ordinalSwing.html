@@ -1,29 +1,31 @@
 <div class="row">
   <div class="columns large-12">
-    <h3 ng-bind="state.title"></h3>
+    <h3>
+      <span ng-if="state.ordinalPrefs.length == 0">If you could improve this treatment what would you do?</span>
+      <span ng-if="state.ordinalPrefs.length > 0">If you could improve this treatment again what would you choose?</span>
+    </h3>
     <div ng-if="state.ordinalPrefs.length == 0">
-      Imagine a treatment that has all of the following effects:
+      The treatment you are asked to consider involves:
     </div>
     <div ng-if="state.ordinalPrefs.length > 0">
-      After your previous selection, the treatment now has the following effects:
+      After your previous selection, the treatment now involves:
     </div>
 
     <ul>
       <li ng-repeat="(criterion, value) in state.reference track by $index" ng-init="c = state.problem.criteria[criterion]">
-        <desc title="{{c.description}}">{{c.title}}</desc> = {{value | number:0 }} {{c.unitOfMeasurement}}
+        {{c.title}} = {{value | number:0 }}{{c.unitOfMeasurement}}
       </li>
     </ul>
 
 
     <div>
-      <p>If you could improve this treatment, which of the following would you prefer?<br>
-      Mark only one.</p>
+      <p>If you could improve on this<span ng-if="state.ordinalPrefs.length > 0"> again</span>, which <em>one</em> of the following would you choose?</p>
     </div>
 
     <form>
       <label ng-repeat="(choice, alternative) in state.choices" ng-init="c = state.problem.criteria[choice]">
         <input type="radio" ng-model="state.choice" value="{{choice}}"/>
-        {{c.pvf.direction | capitalize}} {{c.title}} from {{pvf.worst(c) | number:0 }} {{c.unitOfMeasurement}} to {{alternative[choice] | number:0 }} {{c.unitOfMeasurement}}
+        {{c.pvf.direction | capitalize}} {{c.title}} from {{pvf.worst(c) | number:0 }}{{c.unitOfMeasurement}} to {{alternative[choice] | number:0 }}{{c.unitOfMeasurement}}
       </label>
     </form>
     <br>
