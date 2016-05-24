@@ -15,11 +15,14 @@ define(['angular', 'underscore'], function(angular, _) {
         var increasing = criterion.pvf.direction == "increasing";
         var l = increasing ? criterion.pvf.range[0] : criterion.pvf.range[1];
         var r = increasing ? criterion.pvf.range[1] : criterion.pvf.range[0];
-        return _.map(_.range(nIntervals), function(i) {
-          var w1 = i/nIntervals;
-          var w2 = (i + 1)/nIntervals;
-          return [w1 * r + (1 - w1) * l, w2 * r + (1 - w2) * l];
-        });
+        return {
+          'delta': (criterion.pvf.range[1] - criterion.pvf.range[0]) / nIntervals,
+          'intervals': _.map(_.range(nIntervals), function(i) {
+            var w1 = i/nIntervals;
+            var w2 = (i + 1)/nIntervals;
+            return [w1 * r + (1 - w1) * l, w2 * r + (1 - w2) * l];
+          })
+        };
       }
       return _.mapObject(state.problem.criteria, generate);
     };
@@ -33,6 +36,7 @@ define(['angular', 'underscore'], function(angular, _) {
         prefs: state.prefs || [],
         pvfPrefs: answers,
         intervals: generateIntervals(state),
+        ranks: _.range(1, nIntervals + 1),
         criterion: criteriaOrder[0],
         criterionInfo: criteria[criteriaOrder[0]],
         step: 1,
@@ -42,7 +46,7 @@ define(['angular', 'underscore'], function(angular, _) {
     };
 
     var validChoice = function(state) {
-      return state.choice.length === 4 && _.every(state.choice, function(x) { return x >= 1 && x <= 3; });
+      return state.choice.length === nIntervals && _.every(state.choice, function(x) { return x >= 1 && x <= nIntervals; });
     };
 
     var nextState = function(state) {
@@ -82,7 +86,7 @@ define(['angular', 'underscore'], function(angular, _) {
     };
 
     return {
-      fields: ['criterion', 'criterionInfo', 'intervals', 'choice', 'pvfPrefs'],
+      fields: ['criterion', 'criterionInfo', 'intervals', 'ranks', 'choice', 'pvfPrefs'],
       initialize: initialize,
       standardize: _.identity,
       nextState: nextState,
