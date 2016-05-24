@@ -34,6 +34,9 @@ define(function(require) {
       var nextState = nextStates.pop();
       if (nextState && _.isEqual(nextState.previousChoice, choice)) {
         $scope.state = nextState;
+        if (_.isNumber(nextState.stepsRemaining)) {
+          $scope.progress.current = nextState.stepsRemaining;
+        }
         $window.scrollTo(0,0);
         return true;
       } else {
@@ -43,16 +46,15 @@ define(function(require) {
       state = _.pick(state, PERSISTENT_FIELDS.concat(handler.fields));
       nextState = handler.nextState(state);
 
-      if (_.isNumber(nextState.stepsRemaining)) {
-        $scope.progress.current = nextState.stepsRemaining;
-      }
-
       nextState.previousChoice = choice;
 
       nextState.intermediate = handler.standardize(nextState.prefs);
 
       $scope.state = nextState;
 
+      if (_.isNumber(nextState.stepsRemaining)) {
+        $scope.progress.current = nextState.stepsRemaining;
+      }
       $window.scrollTo(0,0);
       return true;
     };
