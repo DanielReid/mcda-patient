@@ -92,7 +92,7 @@ define(['angular', 'underscore'], function(angular, _) {
       nextState: nextState,
       validChoice: validChoice,
       isFinished: isFinished,
-      stepCountRange: function(problem) { return _.size(problem.criteria); },
+      stepCountRange: function(problem) { return [_.size(problem.criteria), _.size(problem.criteria)]; },
       save: save
     };
   };
