@@ -1,7 +1,6 @@
 'use strict';
 define(['angular', 'underscore'], function(angular, _) {
   function initialize(state, settings) {
-    state.followUpRequested = false;
     state.feedbackText = '';
     return state;
   }
@@ -10,7 +9,6 @@ define(['angular', 'underscore'], function(angular, _) {
     var answers = angular.copy(state.prefs);
     answers.push({
       'type': 'closing',
-      'followUpRequested': state.followUpRequested,
       'feedbackText': state.feedbackText
     });
     return answers;
