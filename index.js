@@ -9,7 +9,7 @@ var _ = require('lodash');
 app.use(bodyParser.urlencoded({extended: true}));
 app.use(bodyParser.json());
 app.use(express.static('./resources/public', { maxAge: 86400000 }));
-app.use('/admin', auth.basicAuth('admin', 'test'));
+app.use('/admin', auth.basicAuth('admin', process.env.SURVEY_ADMIN_PASSWORD));
 
 app.engine('html', swig.renderFile);
 app.set('view engine', 'html');

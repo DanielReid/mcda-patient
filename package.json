@@ -21,13 +21,14 @@
   },
   "dependencies": {
     "basic-auth": "~1.0.3",
-    "express": "~4.13.3",
-    "swig": "~1.4.2",
-    "sequelize": "~3.19.3",
-    "pg": "~4.4.3",
+    "bcrypt": "^0.8.6",
     "body-parser": "~1.14.1",
+    "express": "~4.13.3",
+    "lodash": "~4.6.1",
+    "pg": "~4.4.3",
     "requirejs": "~2.1.22",
-    "lodash": "~4.6.1"
+    "sequelize": "~3.19.3",
+    "swig": "~1.4.2"
   },
   "devDependencies": {
     "jasmine": "~2.4.1",
