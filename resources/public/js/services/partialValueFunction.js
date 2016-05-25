@@ -56,6 +56,7 @@ define(function(require) {
     };
 
     var inv = function(criterion) {
+      if (!criterion) return undefined;
       var f = pvf(criterion);
       return function(v) {
         var idx = !f.isIncreasing ? findIndexOfFirstSmallerElement(f.values, v) : findIndexOfFirstLargerElement(f.values, v);
