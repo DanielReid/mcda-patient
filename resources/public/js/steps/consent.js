@@ -8,6 +8,9 @@ define(['angular', 'underscore'], function(angular, _) {
       nextState: _.identity,
       validChoice: function(state) { return state.consent === "consent"; },
       isFinished: function(state) { return state.consent === "consent"; },
+      save: function(state) {
+        return [{"type": "consent", "date": new Date() }]
+      },
       stepCountRange: function(problem) { return [1, 1]; }
     };
   };

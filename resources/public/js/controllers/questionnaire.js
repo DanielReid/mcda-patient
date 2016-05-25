@@ -59,7 +59,7 @@ define(['angular', 'underscore', './helpers/wizard'], function(angular, _, Wizar
     function saveState(state) {
       if(currentHandler.save) {
         var newPrefs = currentHandler.save(state);
-        state = _.pick(angular.copy(state), ['problem', 'prefs']);
+        state = _.pick(angular.copy(state), ['problem', 'questions', 'prefs']);
         state.prefs = (state.prefs ? state.prefs : []).concat(newPrefs);
       }
       return state;
