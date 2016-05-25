@@ -8,7 +8,7 @@ var _ = require('lodash');
 
 app.use(bodyParser.urlencoded({extended: true}));
 app.use(bodyParser.json());
-app.use(express.static('./resources/public'));
+app.use(express.static('./resources/public', { maxAge: 86400000 }));
 app.use('/admin', auth.basicAuth('admin', 'test'));
 
 app.engine('html', swig.renderFile);
