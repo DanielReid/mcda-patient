@@ -4,11 +4,14 @@
       <span ng-if="state.ordinalPrefs.length == 0">If you could improve this treatment what would you do?</span>
       <span ng-if="state.ordinalPrefs.length > 0">If you could improve this treatment again what would you choose?</span>
     </h3>
-    <div ng-if="state.ordinalPrefs.length == 0">
-      The treatment you are asked to consider involves:
-    </div>
-    <div ng-if="state.ordinalPrefs.length > 0">
-      After your previous selection, the treatment now involves:
+    <div>
+      <span><strong>Q{{state.ordinalPrefs.length + 1}}:</strong>
+      <span ng-if="state.ordinalPrefs.length == 0">
+        The treatment you are asked to consider involves:
+      </span>
+      <span ng-if="state.ordinalPrefs.length > 0">
+        After your previous selection, the treatment now involves:
+      </span>
     </div>
 
     <ul>

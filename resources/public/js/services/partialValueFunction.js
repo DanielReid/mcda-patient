@@ -63,7 +63,7 @@ define(function(require) {
     };
 
     var isIncreasing = function(criterion) {
-      return criterion.pvf.direction === "increasing";
+      return criterion ? criterion.pvf.direction === "increasing" : undefined;
     };
 
     var best = function(criterion) {

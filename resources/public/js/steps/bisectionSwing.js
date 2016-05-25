@@ -46,6 +46,7 @@ define(function(require) {
     function buildInitial(state, criterionA, criterionB, step) {
       var bounds = pvf.getBounds(criteria[criterionA]);
       var initial = {
+        stepOffset: _.size(criteria) - 1,
         step: step,
         total: (_.size(criteria) - 1) * 2,
         criterionA: criterionA,
@@ -159,7 +160,8 @@ define(function(require) {
                'criterionB',
                'cutoff',
                'answers',
-               'stepsRemaining'],
+               'stepsRemaining',
+               'stepOffset'],
       nextState: nextState,
       standardize: _.identity,
       save: save,
