@@ -28,7 +28,7 @@
     <form>
       <label ng-repeat="(choice, alternative) in state.choices" ng-init="c = state.problem.criteria[choice]">
         <input type="radio" ng-model="state.choice" value="{{choice}}"/>
-        {{c.pvf.direction | capitalize}} {{c.title}} from {{pvf.worst(c) | number:0 }}{{c.unitOfMeasurement}} to {{alternative[choice] | number:0 }}{{c.unitOfMeasurement}}
+        {{c.pvf.direction == "increasing" ? "Increase" : "Decrease"}} {{c.title}} from {{pvf.worst(c) | number:0 }}{{c.unitOfMeasurement}} to {{alternative[choice] | number:0 }}{{c.unitOfMeasurement}}
       </label>
     </form>
     <br>
