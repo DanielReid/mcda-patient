@@ -17,6 +17,8 @@ define(function(require) {
     };
 
     var pvf = function(criterion) {
+      if (!criterion) return undefined;
+
       var pvf = criterion.pvf;
       var increasing = isIncreasing(criterion);
 
@@ -67,10 +69,12 @@ define(function(require) {
     };
 
     var best = function(criterion) {
+      if (!criterion) return undefined;
       return isIncreasing(criterion) ? criterion.pvf.range[1] : criterion.pvf.range[0];
     };
 
     var worst = function(criterion) {
+      if (!criterion) return undefined;
       return isIncreasing(criterion) ? criterion.pvf.range[0] : criterion.pvf.range[1];
     };
 
