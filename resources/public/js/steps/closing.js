@@ -6,12 +6,10 @@ define(['angular', 'underscore'], function(angular, _) {
   }
 
   function save(state) {
-    var answers = angular.copy(state.prefs);
-    answers.push({
+    return [{
       'type': 'closing',
       'feedbackText': state.feedbackText
-    });
-    return answers;
+    }];
   }
 
   return function($scope) {
