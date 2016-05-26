@@ -8,16 +8,16 @@
       <dt>Treatment {{ state.aLabel }} involves</dt>
       <dd>
         <ul>
-          <li>{{state.a.title}} = {{ pvf.worst(state.a) | number:0 }}{{state.a.unitOfMeasurement}}</li>
-          <li>{{state.b.title}} = {{ pvf.best(state.b) | number:0 }}{{state.b.unitOfMeasurement}}</li>
+          <li>{{ pvf.worst(state.a) | number:0 }}{{state.a.unitOfMeasurement}} {{state.a.titleIndefinite}}</li>
+          <li>{{ pvf.best(state.b) | number:0 }}{{state.b.unitOfMeasurement}} {{state.b.titleIndefinite}}</li>
         </ul>
       </dd>
 
       <dt>Treatment {{ state.bLabel }} involves</dt>
       <dd>
         <ul>
-          <li>{{state.a.title}} = {{pvf.inv(state.a)(state.cutoff) | number:0 }}{{state.a.unitOfMeasurement}}</li>
-          <li>{{state.b.title}} = {{pvf.worst(state.b) | number:0 }}{{state.b.unitOfMeasurement}}</li>
+          <li>{{pvf.inv(state.a)(state.cutoff) | number:0 }}{{state.a.unitOfMeasurement}} {{state.a.titleIndefinite}}</li>
+          <li>{{pvf.worst(state.b) | number:0 }}{{state.b.unitOfMeasurement}} {{state.b.titleIndefinite}}</li>
         </ul>
       </dd>
     </dl>
