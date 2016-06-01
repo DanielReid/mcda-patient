@@ -16,7 +16,7 @@
 
     <ul>
       <li ng-repeat="(criterion, value) in state.reference track by $index" ng-init="c = state.problem.criteria[criterion]">
-        a {{value | number:0 }}{{c.unitOfMeasurement}} {{c.titleIndefinite}}
+        about {{value | number:0 }}{{c.unitOfMeasurement}} {{c.titleIndefinite}}
       </li>
     </ul>
 
