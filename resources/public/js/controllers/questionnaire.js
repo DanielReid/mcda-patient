@@ -44,6 +44,7 @@ define(['angular', 'underscore', './helpers/wizard'], function(angular, _, Wizar
       if (step.explainUrl) {
         $scope.stepTemplate = RootPath + "views/" + step.explainUrl;
         $scope.canProceed = function() { return true; };
+        $scope.canReturn = function() { return false; };
         $scope.isFinished = function() { return false; };
         $scope.nextState = doInitialize;
         currentHandler = null;
