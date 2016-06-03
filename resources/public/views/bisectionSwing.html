@@ -25,10 +25,14 @@
     <p>Based on this information which treatment would you prefer?</p>
 
     <form>
-      <label for="criterion-b"><input type="radio" ng-model="state.choice" value="{{state.criterionB}}" id="criterion-b">
-        Treatment {{state.aLabel}}</label>
-      <label for="criterion-a"><input type="radio" ng-model="state.choice" value="{{state.criterionA}}" id="criterion-a">
-        Treatment {{state.bLabel}}</label>
+      <div class="longlabel">
+        <input type="radio" ng-model="state.choice" value="{{state.criterionB}}" id="criterion-b">
+        <label for="criterion-b">Treatment {{state.aLabel}}</label>
+      </div>
+      <div class="longlabel">
+        <input type="radio" ng-model="state.choice" value="{{state.criterionA}}" id="criterion-a">
+        <label for="criterion-a">Treatment {{state.bLabel}}</label>
+      </div>
     </form>
 
   </div>

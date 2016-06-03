@@ -26,10 +26,12 @@
     </div>
 
     <form>
-      <label ng-repeat="(choice, alternative) in state.choices" ng-init="c = state.problem.criteria[choice]">
-        <input type="radio" ng-model="state.choice" value="{{choice}}"/>
-        {{c.pvf.direction == "increasing" ? "Increase" : "Decrease"}} {{c.title}} to {{alternative[choice] | number:0 }}{{c.unitOfMeasurement}}
-      </label>
+      <div class="longlabel" ng-repeat="(choice, alternative) in state.choices" ng-init="c = state.problem.criteria[choice]">
+        <input type="radio" ng-model="state.choice" value="{{choice}}" id="input_{{::$id}}" />
+        <label for="input_{{::$id}}">
+          {{c.pvf.direction == "increasing" ? "Increase" : "Decrease"}} {{c.title}} to {{alternative[choice] | number:0 }}{{c.unitOfMeasurement}}
+        </label>
+      </div>
     </form>
     <br>
   </div>

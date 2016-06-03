@@ -1,4 +1,3 @@
-
 @import "settings";
 
 // settings & overrides
@@ -16,4 +15,14 @@ h3 {
 }
 h4 {
   font-size: 1.125rem;
+}
+
+.longlabel input {
+  margin-top: 5px;
+  margin-bottom: 0;
+}
+
+.longlabel input + label {
+  display: inline;
+  line-height: 1;
 }

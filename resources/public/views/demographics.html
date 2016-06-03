@@ -4,12 +4,14 @@
   <p ng-show="!state.questions">No questions have been defined.</p>
 
   <div ng-show="state.questions">
-    <div ng-repeat="question in state.questions">
+    <div ng-repeat="question in state.questions" class="longlabel">
+      <form>
       {{question.question}}
-      <label ng-repeat="answer in question.answers">
-        <input type="radio" ng-model="state.demographics[question.question]" ng-value="answer">
-        {{ answer }}
-      </label>
+      <div ng-repeat="answer in question.answers">
+        <input type="radio" ng-model="state.demographics[question.question]" ng-value="answer" id="input_{{::$id}}">
+        <label for="input_{{::$id}}">{{ answer }}</label>
+      </div>
+    </form>
     </div>
 
   </div>

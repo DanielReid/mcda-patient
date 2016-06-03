@@ -7,8 +7,12 @@
 
         <p>Please click one of the options below to tell us you want to participate.</p>
         <form>
-          <input type="radio" ng-model="state.consent" id="consent-1" value="consent"><label for="consent-1">I consent voluntarily to be a participant in this activity</label><br>
-          <input type="radio" ng-model="state.consent" id="consent-2" value="no-consent"><label for="consent-2">I do not consent to be a participant in this activity</label>
+          <div class="longlabel">
+            <input type="radio" ng-model="state.consent" id="consent-1" value="consent"><label for="consent-1">I consent voluntarily to be a participant in this activity</label>
+          </div>
+          <div class="longlabel">
+            <input type="radio" ng-model="state.consent" id="consent-2" value="no-consent"><label for="consent-2">I do not consent to be a participant in this activity</label>
+          </div>
           <div class="info alert-box" ng-show="state.consent == 'no-consent'">
             The survey
             cannot continue without your consent. If you do not want to
