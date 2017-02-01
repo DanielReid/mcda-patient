@@ -1,5 +1,5 @@
 'use strict';
-define(['angular', 'underscore', './helpers/wizard'], function(angular, _, Wizard, require) {
+define(['angular', 'underscore', './helpers/wizard'], function(angular, _, Wizard) {
 
   return function(Config, $window, $scope, $state, $injector, $http, currentWorkspace, RootPath) {
     if (currentWorkspace.answers && currentWorkspace.answers.done) {
@@ -13,7 +13,9 @@ define(['angular', 'underscore', './helpers/wizard'], function(angular, _, Wizar
     }
 
     function countSteps(steps) {
-      return _.reduce(steps, function(memo, step) { return memo + step.nSteps; }, 0);
+      return _.reduce(steps, function(memo, step) {
+        return memo + step.nSteps;
+      }, 0);
     }
     var nSteps = countSteps(steps);
 
@@ -38,26 +40,30 @@ define(['angular', 'underscore', './helpers/wizard'], function(angular, _, Wizar
           workspace: workspace,
           settings: step
         });
-        $scope.stepTemplate = RootPath + "views/" + step.templateUrl;
-      }
+        $scope.stepTemplate = RootPath + 'views/' + step.templateUrl;
+      };
 
       if (step.explainUrl) {
-        $scope.stepTemplate = RootPath + "views/" + step.explainUrl;
-        $scope.canProceed = function() { return true; };
-        $scope.isFinished = function() { return false; };
+        $scope.stepTemplate = RootPath + 'views/' + step.explainUrl;
+        $scope.canProceed = function() {
+          return true;
+        };
+        $scope.isFinished = function() {
+          return false;
+        };
         $scope.nextState = doInitialize;
         currentHandler = null;
       } else {
         doInitialize();
       }
 
-      $window.scrollTo(0,0);
+      $window.scrollTo(0, 0);
     };
 
     $scope.nCriteria = _.size(currentWorkspace.problem.criteria);
 
     function saveState(state) {
-      if(currentHandler.save) {
+      if (currentHandler.save) {
         var newPrefs = currentHandler.save(state);
         state = _.pick(angular.copy(state), ['problem', 'prefs']);
         state.prefs = (state.prefs ? state.prefs : []).concat(newPrefs);
@@ -66,7 +72,10 @@ define(['angular', 'underscore', './helpers/wizard'], function(angular, _, Wizar
     }
 
     $scope.proceed = function(state) {
-      if(steps.length === 0) return;
+      if (steps.length === 0) {
+        return;
+      }
+
       var state = saveState(state);
 
       var nextStep = steps.shift();
@@ -74,22 +83,22 @@ define(['angular', 'underscore', './helpers/wizard'], function(angular, _, Wizar
 
       var results = { 'results': state.prefs, 'step': nextStep.id };
       console.log(results);
-      $http.post("/" + currentWorkspace.id, results).success(function(data) {
+      $http.post('/' + currentWorkspace.id, results).success(function(data) {
         currentWorkspace.answers = results;
       }).error(function(data, status) {
-        $scope.$root.$broadcast("error", data, status);
+        $scope.$root.$broadcast('error', data, status);
       });
     };
 
     $scope.submit = function(state) {
       var state = saveState(state);
-      var results = {'results': state.prefs, 'done': true};
+      var results = { 'results': state.prefs, 'done': true };
 
-      $http.post("/" + currentWorkspace.id, results).success(function(data) {
+      $http.post('/' + currentWorkspace.id, results).success(function(data) {
         currentWorkspace.answers = results;
-        $state.go("thankYou");
+        $state.go('thankYou');
       }).error(function(data, status) {
-        $scope.$root.$broadcast("error", data, status);
+        $scope.$root.$broadcast('error', data, status);
       });
     };
 
@@ -98,15 +107,17 @@ define(['angular', 'underscore', './helpers/wizard'], function(angular, _, Wizar
     };
 
     if (currentWorkspace.answers.step) {
-      console.log("Finding step");
+      console.log('Finding step');
       var idx = _.findIndex(steps, function(step) {
         return step.id === currentWorkspace.answers.step;
       });
       console.log(currentWorkspace.answers.step, idx);
-      if (idx < 0) idx = 0;
+      if (idx < 0) {
+        idx = 0;
+      }
       steps = _.rest(steps, idx);
     }
-    currentWorkspace.prefs = 
+    currentWorkspace.prefs =
       currentWorkspace.answers.results ? currentWorkspace.answers.results : [];
     initializeStep(steps.shift(), currentWorkspace);
   };

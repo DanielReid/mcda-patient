@@ -1,7 +1,7 @@
 'use strict';
 define(function(require) {
-  var angular = require("angular");
-  var _ = require("underscore");
+  var angular = require('angular');
+  var _ = require('underscore');
 
   var dependencies = [];
 
@@ -9,7 +9,8 @@ define(function(require) {
     var resource = {
       get: function() {
         var deferred = $q.defer();
-        deferred.resolve(_.pick(window.models, ["id", "problem", "questions", "answers", "lastVisited", "lastSaved", "title"]));
+        deferred.resolve(_.pick(window.models, ['id', 'problem', 'questions', 'answers',
+          'lastVisited', 'lastSaved', 'title']));
         return deferred;
       }
     };

@@ -1,7 +1,7 @@
 'use strict';
 define(function(require) {
-  var criteriaPFS = ['PFS', 'grade2SE', 'grade34SE'];
-  var criteriaOS = ['OS', 'grade2SE', 'grade34SE'];
+  // var criteriaPFS = ['PFS', 'grade2SE', 'grade34SE'];
+  // var criteriaOS = ['OS', 'grade2SE', 'grade34SE'];
   var steps = [
   {
     id: 'about',
@@ -23,37 +23,22 @@ define(function(require) {
     title: 'What improvement matters most to you?',
     handler: require('steps/ordinalSwing'),
     templateUrl: 'ordinalSwing.html',
-    criteriaFilter: criteriaPFS,
+    // criteriaFilter: criteriaPFS,
     output: 'ordinal-pfs'
   }, {
     id: 'bisection-swing-pfs',
     title: 'How much do you prefer one effect over another?',
     handler: require('steps/bisectionSwing'),
     templateUrl: 'bisectionSwing.html',
-    criteriaFilter: criteriaPFS,
+    // criteriaFilter: criteriaPFS,
     ordinal: 'ordinal-pfs',
     output: 'bisection-pfs'
-  }, {
-    id: 'ordinal-swing-os',
-    title: 'What improvement matters most to you?',
-    handler: require('steps/ordinalSwing'),
-    templateUrl: 'ordinalSwing.html',
-    criteriaFilter: criteriaOS,
-    output: 'ordinal-os'
-  }, {
-    id: 'bisection-swing-os',
-    title: 'How much do you prefer one effect over another?',
-    handler: require('steps/bisectionSwing'),
-    templateUrl: 'bisectionSwing.html',
-    criteriaFilter: criteriaOS,
-    ordinal: 'ordinal-os',
-    output: 'bisection-os'
   }, {
     id: 'difference-pvf',
     title: 'How does the starting condition influence your opinion of an improvement?',
     handler: require('steps/differencePvf'),
     templateUrl: 'differencePvf.html',
-    criteriaFilter: ['PFS', 'OS', 'grade2SE', 'grade34SE']
+    // criteriaFilter: ['PFS', 'OS', 'grade2SE', 'grade34SE']
   }];
 
   return {

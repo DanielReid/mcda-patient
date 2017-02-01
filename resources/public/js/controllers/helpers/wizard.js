@@ -1,10 +1,10 @@
 'use strict';
 define(function(require) {
-  var angular = require("angular");
-  var _ = require("underscore");
+  var angular = require('angular');
+  var _ = require('underscore');
 
   return function($window, $scope, handler, workspace, settings) {
-    var PERSISTENT_FIELDS = ["problem", "type", "prefs"];
+    var PERSISTENT_FIELDS = ['problem', 'type', 'prefs'];
     var previousStates =  [];
     var nextStates = [];
 
@@ -26,7 +26,9 @@ define(function(require) {
 
     $scope.nextState = function(state) {
       $scope.$broadcast('nextState');
-      if (!$scope.canProceed(state)) return false;
+      if (!$scope.canProceed(state)) {
+        return false;
+      }
       var choice = state.choice;
 
       // History handling
@@ -61,7 +63,9 @@ define(function(require) {
 
     $scope.previousState = function() {
       $scope.$broadcast('prevState');
-      if (previousStates.length === 0) return false;
+      if (previousStates.length === 0) {
+        return false;
+      }
       nextStates.push(angular.copy($scope.state));
 
       var previousState = previousStates.pop();
