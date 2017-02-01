@@ -14,7 +14,7 @@ define(['angular', 'underscore', 'differencePvf'], function(angular, _, Differen
 
     var generateIntervals = function(state) {
       function generate(criterion) {
-        var increasing = criterion.pvf.direction == 'increasing';
+        var increasing = criterion.pvf.direction === 'increasing';
         var l = increasing ? criterion.pvf.range[0] : criterion.pvf.range[1];
         var r = increasing ? criterion.pvf.range[1] : criterion.pvf.range[0];
         return _.map(_.range(nIntervals), function(i) {
