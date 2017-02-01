@@ -18,6 +18,7 @@ export SURVEY_DB_NAME=<dbname>
 export SURVEY_DB_USER=<dbuser>
 export SURVEY_DB_PASSWORD=<dbpass>
 export SURVEY_DB_HOST=<dbhost>
+export SURVEY_ADMIN_PASSWORD=<survey-admin-password>
 npm install
 node index
 ````
