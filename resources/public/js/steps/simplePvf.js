@@ -1,27 +1,28 @@
 'use strict';
 
-define(['angular', 'underscore', 'differencePvf'], function(angular, _, DifferencePvf) {
+define(['angular', 'underscore'], function(angular, _) {
   return function($scope) {
-    var nIntervals = 3;
+    var nIntervals = 4;
     var criteria = {};
     var criteriaOrder = [];
-    var minQuestions = nIntervals - 1;
-    var maxQuestions = nIntervals * minQuestions / 2;
 
     var title = function() {
-      return 'Difference PVF';
+      return "Simple PVF";
     };
 
     var generateIntervals = function(state) {
       function generate(criterion) {
-        var increasing = criterion.pvf.direction == 'increasing';
+        var increasing = criterion.pvf.direction == "increasing";
         var l = increasing ? criterion.pvf.range[0] : criterion.pvf.range[1];
         var r = increasing ? criterion.pvf.range[1] : criterion.pvf.range[0];
-        return _.map(_.range(nIntervals), function(i) {
-          var w1 = i / nIntervals;
-          var w2 = (i + 1) / nIntervals;
-          return [w1 * r + (1 - w1) * l, w2 * r + (1 - w2) * l];
-        });
+        return {
+          'delta': (criterion.pvf.range[1] - criterion.pvf.range[0]) / nIntervals,
+          'intervals': _.map(_.range(nIntervals), function(i) {
+            var w1 = i/nIntervals;
+            var w2 = (i + 1)/nIntervals;
+            return [w1 * r + (1 - w1) * l, w2 * r + (1 - w2) * l];
+          })
+        };
       }
       return _.mapObject(state.problem.criteria, generate);
     };
@@ -29,23 +30,23 @@ define(['angular', 'underscore', 'differencePvf'], function(angular, _, Differen
     var initialize = function(state, settings) {
       criteria = state.problem.criteria;
       criteriaOrder = settings.criteriaFilter ? settings.criteriaFilter : _.sortBy(_.keys(criteria));
-      var answers = _.mapObject(criteria, function() {
-        return []; });
+      var answers = _.mapObject(criteria, function() { return []; });
       var fields = {
         title: title(),
         prefs: state.prefs || [],
         pvfPrefs: answers,
         intervals: generateIntervals(state),
+        ranks: _.range(1, nIntervals + 1),
         criterion: criteriaOrder[0],
         criterionInfo: criteria[criteriaOrder[0]],
-        question: DifferencePvf.nextInterval(nIntervals, []),
-        stepsRemaining: criteriaOrder.length * maxQuestions
+        step: 1,
+        choice: []
       };
       return _.extend(state, fields);
     };
 
     var validChoice = function(state) {
-      return state.choice === '<' || state.choice === '>' || state.choice === '=';
+      return state.choice.length === nIntervals && _.every(state.choice, function(x) { return x >= 1 && x <= nIntervals; });
     };
 
     var nextState = function(state) {
@@ -54,19 +55,13 @@ define(['angular', 'underscore', 'differencePvf'], function(angular, _, Differen
       }
 
       var nextState = angular.copy(state);
-      nextState.choice = undefined;
-      var answers = nextState.pvfPrefs[state.criterion];
-      answers.push(state.question.concat([state.choice]));
-      nextState.question = DifferencePvf.nextInterval(nIntervals, answers);
-      nextState.stepsRemaining -= 1;
+      nextState.choice = [];
+      nextState.pvfPrefs[state.criterion] = state.choice;
 
-      if (!nextState.question) {
-        var idx = _.indexOf(criteriaOrder, state.criterion) + 1;
-        nextState.criterion = criteriaOrder[idx];
-        nextState.question = DifferencePvf.nextInterval(nIntervals, []);
-        nextState.criterionInfo = criteria[criteriaOrder[idx]];
-        nextState.stepsRemaining = (criteriaOrder.length - idx) * maxQuestions;
-      }
+      var idx = _.indexOf(criteriaOrder, state.criterion) + 1;
+      nextState.criterion = criteriaOrder[idx];
+      nextState.criterionInfo = criteria[criteriaOrder[idx]];
+      nextState.step = idx + 1;
 
       return nextState;
     };
@@ -78,7 +73,7 @@ define(['angular', 'underscore', 'differencePvf'], function(angular, _, Differen
     var standardize = function(prefs) {
       return _.map(criteriaOrder, function(c) {
         return {
-          type: 'difference-pvf',
+          type: 'simple-pvf',
           criterion: c,
           answers: prefs[c]
         };
@@ -90,19 +85,14 @@ define(['angular', 'underscore', 'differencePvf'], function(angular, _, Differen
       return standardize(next.pvfPrefs);
     };
 
-    function stepCountRange(problem) {
-      var n = _.size(problem.criteria);
-      return [minQuestions * n, maxQuestions * n];
-    }
-
     return {
-      fields: ['criterion', 'criterionInfo', 'intervals', 'choice', 'question', 'pvfPrefs', 'stepsRemaining'],
+      fields: ['criterion', 'criterionInfo', 'intervals', 'ranks', 'choice', 'pvfPrefs'],
       initialize: initialize,
       standardize: _.identity,
       nextState: nextState,
       validChoice: validChoice,
       isFinished: isFinished,
-      stepCountRange: stepCountRange,
+      stepCountRange: function(problem) { return [_.size(problem.criteria), _.size(problem.criteria)]; },
       save: save
     };
   };

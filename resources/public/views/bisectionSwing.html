@@ -1,36 +1,38 @@
 <div class="row">
   <div class="columns large-12">
-    <h3>{{title(state.step, state.total)}}</h3>
+    <h3>Choosing between treatments<span ng-if="state.step > 1"> (continued)</span></h3>
 
-    <p>Imagine the following two treatment options:</p>
+    <p><strong>Q{{state.step + state.stepOffset}}:</strong> Please consider the following two treatment options, {{ state.aLabel }} and {{ state.bLabel }}:</p>
 
     <dl>
-      <dt>Treatment A</dt>
+      <dt>Treatment {{ state.aLabel }} involves</dt>
       <dd>
-        <div>
-          <desc title="{{state.a.description}}">{{state.a.title}}</desc>
-          = {{ pvf.worst(state.a) | number:0 }} {{state.a.unitOfMeasurement}}
-        </div>
-        <div>
-          <desc title="{{state.b.description}}">{{state.b.title}}</desc>
-          = {{ pvf.best(state.b) | number:0 }} {{state.b.unitOfMeasurement}}
-        </div>
+        <ul>
+          <li>about {{ pvf.worst(state.a) | number:0 }}{{state.a.unitOfMeasurement}} {{state.a.titleIndefinite}}</li>
+          <li>about {{ pvf.best(state.b) | number:0 }}{{state.b.unitOfMeasurement}} {{state.b.titleIndefinite}}</li>
+        </ul>
       </dd>
 
-      <dt>Treatment B</dt>
+      <dt>Treatment {{ state.bLabel }} involves</dt>
       <dd>
-        <div>{{state.a.title}} = {{pvf.inv(state.a)(state.cutoff) | number:0 }} {{state.a.unitOfMeasurement}}</div>
-        <div>{{state.b.title}} = {{pvf.worst(state.b) | number:0 }} {{state.b.unitOfMeasurement}}</div>
+        <ul>
+          <li>about {{pvf.inv(state.a)(state.cutoff) | number:0 }}{{state.a.unitOfMeasurement}} {{state.a.titleIndefinite}}</li>
+          <li>about {{pvf.worst(state.b) | number:0 }}{{state.b.unitOfMeasurement}} {{state.b.titleIndefinite}}</li>
+        </ul>
       </dd>
     </dl>
 
+    <p>Based on this information which treatment would you prefer?</p>
 
-    <p>Which treatment would you prefer?</p>
     <form>
-      <label for="criterion-b"><input type="radio" ng-model="state.choice" value="{{state.criterionB}}" id="criterion-b">
-        Treatment A</label>
-      <label for="criterion-a"><input type="radio" ng-model="state.choice" value="{{state.criterionA}}" id="criterion-a">
-        Treatment B</label>
+      <div class="longlabel">
+        <input type="radio" ng-model="state.choice" value="{{state.criterionB}}" id="criterion-b">
+        <label for="criterion-b">Treatment {{state.aLabel}}</label>
+      </div>
+      <div class="longlabel">
+        <input type="radio" ng-model="state.choice" value="{{state.criterionA}}" id="criterion-a">
+        <label for="criterion-a">Treatment {{state.bLabel}}</label>
+      </div>
     </form>
 
   </div>

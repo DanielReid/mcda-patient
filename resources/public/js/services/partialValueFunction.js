@@ -17,6 +17,8 @@ define(function(require) {
     };
 
     var pvf = function(criterion) {
+      if (!criterion) return undefined;
+
       var pvf = criterion.pvf;
       var increasing = isIncreasing(criterion);
 
@@ -54,6 +56,7 @@ define(function(require) {
     };
 
     var inv = function(criterion) {
+      if (!criterion) return undefined;
       var f = pvf(criterion);
       return function(v) {
         var idx = !f.isIncreasing ? findIndexOfFirstSmallerElement(f.values, v) : findIndexOfFirstLargerElement(f.values, v);
@@ -63,14 +66,16 @@ define(function(require) {
     };
 
     var isIncreasing = function(criterion) {
-      return criterion.pvf.direction === "increasing";
+      return criterion ? criterion.pvf.direction === "increasing" : undefined;
     };
 
     var best = function(criterion) {
+      if (!criterion) return undefined;
       return isIncreasing(criterion) ? criterion.pvf.range[1] : criterion.pvf.range[0];
     };
 
     var worst = function(criterion) {
+      if (!criterion) return undefined;
       return isIncreasing(criterion) ? criterion.pvf.range[0] : criterion.pvf.range[1];
     };
 

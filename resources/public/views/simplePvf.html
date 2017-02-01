@@ -1,0 +1,36 @@
+<div class="row">
+  <div class="columns large-12">
+    <h3>How important do you think these improvements are?</h3>
+
+    <p><strong>Scenario {{ state.step }}</strong> &mdash; {{state.criterionInfo.title}}</p>
+
+    <p>Below are {{state.ranks.length}} consecutive improvements (a {{state.intervals[state.criterion].delta}}{{state.criterion.unitOfMeasurement}}% {{ state.criterionInfo.pvf.direction == "decreasing" ? "decrease" : "increase" }} each time) to {{state.criterionInfo.title}}. Each of these improvements make a treatment more valuable, but not necessarily by the same amount. How would you rank them from 1 (greatest increase in value) to {{state.ranks[state.ranks.length - 1]}} (smallest increase in value)?</p>
+
+    <p>Please note you can assign the same rank to those improvements that you think are equally valuable. For example, if you think they are all equally valuable you should give them all a ranking of 1.</p>
+
+    <table>
+      <thead>
+        <tr>
+          <th></th>
+          <th ng-repeat="rank in state.ranks">Rank&nbsp;{{rank}}</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr ng-repeat="interval in state.intervals[state.criterion].intervals track by $index" ng-init="intervalIndex = $index">
+          <td>Improvement {{ $index | indexAsAlpha }}:
+            {{state.criterionInfo.title}}
+            is {{ state.criterionInfo.pvf.direction == "decreasing" ? "decreased" : "increased" }}
+            from {{ interval[0] | number:0 }}{{state.criterionInfo.unitOfMeasurement}}
+            to {{ interval[1] | number:0 }}{{state.criterionInfo.unitOfMeasurement}}
+          </td>
+          <td ng-repeat="rank in state.ranks" style="text-align: center">
+            <input type="radio" value="{{rank}}" ng-model="state.choice[intervalIndex]">
+          </td>
+        </tr>
+      </tbody>
+    </table>
+
+  </div>
+</div>
+
+

@@ -1,4 +1,9 @@
 <div>
+
+  <div style="text-align: center">
+    <img src="img/banner.png">
+  </div>
+
   <div ng-show="done">
     <h3>Thank you for participating in the survey!</h3>
 
@@ -6,7 +11,7 @@
   </div>
 
   <div ng-show="!done">
-    <h3>Welcome back at the survey!</h3>
+    <h3>Welcome back to the survey!</h3>
 
     <p>Thank you for returning to the survey.
     <span ng-show="lastSaved">You last participated on {{ lastSaved | date:'longDate' }}.</span>

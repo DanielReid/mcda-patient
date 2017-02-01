@@ -8,8 +8,8 @@ var _ = require('lodash');
 
 app.use(bodyParser.urlencoded({extended: true}));
 app.use(bodyParser.json());
-app.use(express.static('./resources/public'));
-app.use('/admin', auth.basicAuth('admin', 'test'));
+app.use(express.static('./resources/public', { maxAge: 86400000 }));
+app.use('/admin', auth.basicAuth('admin', process.env.SURVEY_ADMIN_PASSWORD));
 
 app.engine('html', swig.renderFile);
 app.set('view engine', 'html');
@@ -74,14 +74,18 @@ var Result = db.define('result', {
 function questionnaireNotFound(res, id) {
   return function(error) {
     res.status(404).send("Questionnaire " + id + " not found");
-    res.end();
   };
 }
 
 function surveyNotFound(res, url) {
   return function(error) {
     res.status(404).send("Survey with ID " + url + " not found");
-    res.end();
+  };
+}
+
+function surveyNotFoundPretty(res, url) {
+  return function(error) {
+    res.status(404).render("surveyNotFound.html", { host: host, url: url });
   };
 }
 
@@ -89,13 +93,11 @@ function internalServerError(res) {
   return function (error) {
     console.log(error);
     res.status(500).send(error);
-    res.end();
   };
 }
 
 app.get('/', function(req, res) {
-  res.send('Welcome home!');
-  res.end();
+  res.render('index.html', { host: host });
 });
 
 app.get('/admin', function(req, res) {
@@ -181,8 +183,7 @@ app.get('/admin/:id/export-urls', function(req, res) {
   Questionnaire.findById(req.params.id).then(function(qnaire) {
     Result.findAll({"where": {"questionnaire_id": req.params.id}}).then(function(results) {
       var urls = _.map(results, function(r) { return host + "/" + r.url});
-      console.log(urls);
-      res.end(urls.join("\r\n"));
+      res.send(urls.join("\r\n"));
     }).catch(internalServerError(res));
   }).catch(internalServerError(res));
 });
@@ -190,7 +191,7 @@ app.get('/admin/:id/export-urls', function(req, res) {
 app.get('/admin/:id/export-results', function(req, res) {
   Questionnaire.findById(req.params.id).then(function(qnaire) {
     Result.findAll({"where": {"questionnaire_id": req.params.id}}).then(function(results) {
-      res.end(JSON.stringify(results));
+      res.send(JSON.stringify(results));
     }).catch(internalServerError(res));
   }).catch(internalServerError(res));
 });
@@ -212,7 +213,7 @@ app.get('/:survey', function(req, res) {
         }
       });
     }).catch(questionnaireNotFound(res, survey.questionnaire_id));
-  }).catch(surveyNotFound(res, req.params.survey));
+  }).catch(surveyNotFoundPretty(res, req.params.survey));
 });
 
 app.post('/:survey', function(req, res) {

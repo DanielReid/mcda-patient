@@ -1,6 +1,6 @@
 'use strict';
 define(['angular', 'underscore'], function(angular, _) {
-  return function($scope, $state, currentWorkspace) {
+  return function($scope, $state, $http, currentWorkspace) {
     $scope.workspace = currentWorkspace;
     $scope.done = currentWorkspace.answers ? currentWorkspace.answers.done : undefined;
     $scope.lastVisited = currentWorkspace.lastVisited;
@@ -11,8 +11,12 @@ define(['angular', 'underscore'], function(angular, _) {
     }
 
     $scope.startOver = function() {
-      currentWorkspace.answers = null;
-      $state.go("questionnaire");
+      $http.post("/" + currentWorkspace.id, null).success(function(data) {
+        currentWorkspace.answers = null;
+        $state.go("questionnaire");
+      }).error(function(data, status) {
+        $scope.$root.$broadcast("error", data, status);
+      });
     }
   };
 });

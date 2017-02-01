@@ -1,13 +1,11 @@
 <div class="row">
   <div class="columns large-12">
-    <h3>How satisfying do you think each step in an improvement process is?</h3>
-
-<!--  {{ state.criterionInfo.pvf.direction === "decreasing" ? "decrease" : "increase" }} the -->
+    <h3>How important is each improvement?</h3>
 
     <p>
       Imagine {{state.criterionInfo.pvf.direction}} <desc title="{{ state.criterionInfo.description }}">{{state.criterionInfo.title}}</desc>
       from {{state.intervals[state.criterion][0][0]|number:0}}{{state.criterionInfo.unitOfMeasurement}}
-       to  {{state.intervals[state.criterion][state.intervals[state.criterion].length-1][1]|number:0}} {{state.criterionInfo.unitOfMeasurement}} in three equal steps:
+      to  {{state.intervals[state.criterion][state.intervals[state.criterion].length-1][1]|number:0}} {{state.criterionInfo.unitOfMeasurement}} in three equal steps:
     </p>
 
     <ul>
@@ -19,19 +17,19 @@
       </li>
     </ul>
 
-    <p>Which of the following statements best describes how you feel?  (question {{state.pvfPrefs[state.criterion].length + 1 }} of at most 3)</p>
+    <p>Which of the following statements best describes how you feel? <em>(question {{state.pvfPrefs[state.criterion].length + 1 }} of at most 3)</em></p>
 
     <label>
       <input value=">" type="radio" ng-model="state.choice">
-      {{state.question[0] | indexAsAlpha }} is more satisfying to me than {{state.question[1] | indexAsAlpha }}
+      {{state.question[0] | indexAsAlpha }} feels like a more important improvement to me than {{state.question[1] | indexAsAlpha }}
     </label>
     <label>
       <input value="<" type="radio" ng-model="state.choice">
-      {{state.question[1] | indexAsAlpha }} is more satisfying to me than {{state.question[0] | indexAsAlpha }}
+      {{state.question[1] | indexAsAlpha }} feels like a more important improvement to me than {{state.question[0] | indexAsAlpha }}
     </label>
     <label>
       <input value="=" type="radio" ng-model="state.choice">
-      {{state.question[0] | indexAsAlpha }} and {{state.question[1] | indexAsAlpha }} are equally satisfying
+      {{state.question[0] | indexAsAlpha }} and {{state.question[1] | indexAsAlpha }} are equally important 
     </label>
   </div>
 </div>
